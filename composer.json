@@ -1,6 +1,6 @@
 {
-    "name": "hans-thomas/starter",
-    "description": "package-starter is a predefined laravel packages scaffold",
+    "name": "hans-thomas/lyra",
+    "description": "payment gateway with offline purchase support",
     "license": "MIT",
     "authors": [
         {
@@ -28,7 +28,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Hans\\Starter\\StarterServiceProvider"
+                "Hans\\Starter\\LyraServiceProvider"
             ]
         }
     },

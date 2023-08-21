@@ -5,7 +5,7 @@ namespace Hans\Starter;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
-class StarterServiceProvider extends ServiceProvider
+class LyraServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
@@ -25,7 +25,7 @@ class StarterServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'starter');
+        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'lyra');
 
         $this->registerRoutes();
         if ($this->app->runningInConsole()) {
@@ -41,7 +41,7 @@ class StarterServiceProvider extends ServiceProvider
      */
     private function registerRoutes()
     {
-        Route::prefix('starter')->middleware('api')->group(__DIR__.'/../routes/api.php');
+        Route::prefix('lyra')->middleware('api')->group(__DIR__.'/../routes/api.php');
     }
 
     /**
@@ -64,7 +64,7 @@ class StarterServiceProvider extends ServiceProvider
     private function registerPublishes()
     {
         $this->publishes([
-            __DIR__.'/../config/config.php' => config_path('starter.php'),
-        ], 'starter-config');
+            __DIR__.'/../config/config.php' => config_path('lyra.php'),
+        ], 'lyra-config');
     }
 }

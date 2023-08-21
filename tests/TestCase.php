@@ -2,7 +2,7 @@
 
 namespace Hans\Starter\Tests;
 
-use Hans\Starter\StarterServiceProvider;
+use Hans\Starter\LyraServiceProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Routing\Router;
@@ -42,7 +42,7 @@ class TestCase extends BaseTestCase
     protected function getPackageProviders($app)
     {
         return [
-            StarterServiceProvider::class,
+            LyraServiceProvider::class,
         ];
     }
 
