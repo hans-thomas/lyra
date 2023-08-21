@@ -1,6 +1,6 @@
 <?php
 
-namespace Hans\Starter;
+namespace Hans\Lyra;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;

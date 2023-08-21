@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Hans\\Starter\\": "src/"
+            "Hans\\Lyra\\": "src/"
         }
     },
     "autoload-dev": {
@@ -28,7 +28,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Hans\\Starter\\LyraServiceProvider"
+                "Hans\\Lyra\\LyraServiceProvider"
             ]
         }
     },
