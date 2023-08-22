@@ -18,7 +18,10 @@
     "autoload": {
         "psr-4": {
             "Hans\\Lyra\\": "src/"
-        }
+        },
+        "files": [
+            "src/Helpers/functions.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
