@@ -2,12 +2,40 @@
 
 	namespace Hans\Lyra\Contracts;
 
-	interface Gateway {
-		function request(): string;
+	use GuzzleHttp\Client;
 
-		function pay(): string;
+	abstract class Gateway {
 
-		function verify(): string;
+		protected readonly array $settings;
+		protected readonly Client $client;
+		protected readonly string $mode;
 
-		function translateError( int $error ): string;
+		public function __construct(
+			protected readonly int $amount,
+			string $mode = null
+		) {
+			$this->settings = lyra_config( 'gateways.' . static::class );
+			$this->client   = new Client;
+			if ( $mode and key_exists( $mode, $this->settings[ 'modes' ] ) ) {
+				$this->mode = $mode;
+			} else {
+				$this->mode = $this->settings[ 'mode' ] ?? 'normal';
+			}
+		}
+
+		abstract public function request(): string;
+
+		abstract public function pay(): string;
+
+		abstract public function verify(): string;
+
+		abstract public function errorsList( int $error ): array;
+
+		protected function apis(): array {
+			return $this->settings[ 'modes' ][ $this->mode ] ?? [];
+		}
+
+		public function isSandboxEnabled(): bool {
+			return $this->mode == 'sandbox';
+		}
 	}
