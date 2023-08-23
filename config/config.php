@@ -1,36 +1,65 @@
 <?php
 
+	use Hans\Lyra\Gateways\Payir;
 	use Hans\Lyra\Gateways\Zarinpal;
 
 	return [
 		'default'  => Zarinpal::class,
 		'gateways' => [
 			Zarinpal::class => [
-				'mode' => 'api',
+				'mode' => 'normal',
 
-				'merchant_id'  => '',
-				'callback_url' => '',
-				"email"        => '',
-				"mobile"       => '',
+				'merchant_id'  => '104996d4-9460-11ea-b76a-000c295eb8fc',
+				'callback_url' => 'https://www.yoursite.com/verify.php',
+				'description'  => 'caption goes here.',
+				'metadata'     => [
+					"email"  => 'info@email.com',
+					"mobile" => '09121234567'
+				],
 
 				'modes' => [
-					'api'       => [
-						'apiPurchaseUrl'     => 'https://api.zarinpal.com/pg/v4/payment/request.json',
-						'apiPaymentUrl'      => 'https://www.zarinpal.com/pg/StartPay/',
-						'apiVerificationUrl' => 'https://api.zarinpal.com/pg/v4/payment/verify.json',
+					'normal'    => [
+						'purchase'     => 'https://api.zarinpal.com/pg/v4/payment/request.json',
+						'payment'      => 'https://www.zarinpal.com/pg/StartPay/:authority',
+						'verification' => 'https://api.zarinpal.com/pg/v4/payment/verify.json',
 					],
 					'sandbox'   => [
-						'apiPurchaseUrl'     => 'https://sandbox.zarinpal.com/pg/services/WebGate/wsdl',
-						'apiPaymentUrl'      => 'https://sandbox.zarinpal.com/pg/StartPay/',
-						'apiVerificationUrl' => 'https://sandbox.zarinpal.com/pg/services/WebGate/wsdl',
+						'purchase'     => 'https://sandbox.zarinpal.com/pg/v4/payment/request.json',
+						'payment'      => 'https://sandbox.zarinpal.com/pg/StartPay/:authority',
+						'verification' => 'https://sandbox.zarinpal.com/pg/v4/payment/verify.json',
 					],
 					'zaringate' => [
-						'apiPurchaseUrl'     => 'https://ir.zarinpal.com/pg/services/WebGate/wsdl',
-						'apiPaymentUrl'      => 'https://www.zarinpal.com/pg/StartPay/:authority/ZarinGate',
-						'apiVerificationUrl' => 'https://ir.zarinpal.com/pg/services/WebGate/wsdl',
+						'purchase'     => 'https://ir.zarinpal.com/pg/services/WebGate/wsdl',
+						'payment'      => 'https://www.zarinpal.com/pg/StartPay/:authority/ZarinGate',
+						'verification' => 'https://ir.zarinpal.com/pg/services/WebGate/wsdl',
 					]
 				],
 
-			]
+			],
+			Payir::class    => [
+				'mode' => 'normal',
+
+				'api'             => '',
+				'amount'          => '',
+				'redirect'        => 'https://www.yoursite.com/verify.php',
+				// optional parameters:
+				'mobile'          => '',
+				'factorNumber'    => '',
+				'description'     => '',
+				'validCardNumber' => '',
+
+				'modes' => [
+					'normal'  => [
+						'purchase'     => 'https://pay.ir/pg/send',
+						'payment'      => 'https://pay.ir/pg/:token',
+						'verification' => 'https://pay.ir/pg/verify'
+					],
+					'sandbox' => [
+						'purchase'     => 'https://pay.ir/pg/send',
+						'payment'      => 'https://pay.ir/pg/:token',
+						'verification' => 'https://pay.ir/pg/verify'
+					]
+				]
+			],
 		]
 	];
