@@ -1,8 +1,8 @@
 <?php
 
-namespace Hans\Starter\Tests;
+namespace Hans\Lyra\Tests;
 
-use Hans\Starter\LyraServiceProvider;
+use Hans\Lyra\LyraServiceProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Routing\Router;
