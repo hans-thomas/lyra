@@ -27,9 +27,9 @@
 
 		abstract public function pay(): string;
 
-		abstract public function verify(): string;
+		abstract public function verify(): bool;
 
-		abstract public function errorsList( int $error ): array;
+		abstract public function errorsList(): array;
 
 		protected function apis(): array {
 			return $this->settings[ 'modes' ][ $this->mode ] ?? [];
