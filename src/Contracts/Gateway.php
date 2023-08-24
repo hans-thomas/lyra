@@ -15,7 +15,7 @@
 			string $mode = null
 		) {
 			$this->settings = lyra_config( 'gateways.' . static::class );
-			$this->client   = new Client;
+			$this->client   = new Client(['http_errors' => false]);
 			if ( $mode and key_exists( $mode, $this->settings[ 'modes' ] ) ) {
 				$this->mode = $mode;
 			} else {
@@ -37,5 +37,13 @@
 
 		public function isSandboxEnabled(): bool {
 			return $this->mode == 'sandbox';
+		}
+
+		protected function translateError( int $code, string $default = 'Failed to process the request!' ): string {
+			if ( key_exists( $code, $this->errorsList() ) ) {
+				return $this->errorsList()[ $code ];
+			}
+
+			return $default;
 		}
 	}
