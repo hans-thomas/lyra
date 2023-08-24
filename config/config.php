@@ -41,7 +41,7 @@
 
 				'api'             => '',
 				'amount'          => '',
-				'redirect'        => 'https://www.yoursite.com/verify.php',
+				'redirect'        => 'https://Your-CallBack-URL',
 				// optional parameters:
 				'mobile'          => '',
 				'factorNumber'    => '',

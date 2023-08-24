@@ -35,11 +35,11 @@
 			// TODO: Implement pay() method.
 		}
 
-		public function verify(): string {
+		public function verify(): bool {
 			// TODO: Implement verify() method.
 		}
 
-		function errorsList( int $error ): array {
+		function errorsList(): array {
 			// TODO: Implement translateError() method.
 		}
 	}
