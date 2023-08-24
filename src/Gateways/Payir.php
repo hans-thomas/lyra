@@ -2,6 +2,7 @@
 
 	namespace Hans\Lyra\Gateways;
 
+	use GuzzleHttp\Exception\ClientException;
 	use Hans\Lyra\Contracts\Gateway;
 
 	class Payir extends Gateway {
@@ -37,14 +38,63 @@
 		}
 
 		public function pay(): string {
-			// TODO: Implement pay() method.
+			// TODO: Store token on DB
+			$token = $this->request();
+
+			return str_replace(
+				':token',
+				$token,
+				$this->apis()[ 'payment' ]
+			);
 		}
 
-		public function verify(): string {
-			// TODO: Implement verify() method.
+		public function verify(): bool {
+			$status = request( 'status' );
+			$token  = request( 'token' );
+
+			if ( $status != 1 ) {
+				// User canceled the purchase
+				return false;
+			}
+
+			if ( $this->isSandboxEnabled() ) {
+				return true;
+			}
+
+			// TODO: Compare $token with stored token on pay stage
+
+			$data = [
+				'api'   => $this->settings[ 'api' ],
+				'token' => $token
+			];
+
+			try {
+				$response = $this->client->post(
+					$this->apis()[ 'verification' ],
+					[
+						'json'    => $data,
+						'headers' => [
+							'Accept' => 'application/json',
+						],
+					]
+				)
+				                         ->getBody()
+				                         ->getContents();
+				$result   = json_decode( $response, true );
+			} catch ( ClientException $e ) {
+				return false;
+			}
+
+			if ( $result[ 'status' ] !== 1 ) {
+				return false;
+			}
+
+			// TODO: Store transId on DB
+
+			return true;
 		}
 
-		public function errorsList( int $error ): array {
+		public function errorsList(): array {
 			// TODO: Implement errorsList() method.
 		}
 	}
