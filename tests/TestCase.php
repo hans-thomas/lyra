@@ -2,6 +2,7 @@
 
 namespace Hans\Lyra\Tests;
 
+use GuzzleHttp\Client;
 use Hans\Lyra\LyraServiceProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -12,12 +13,16 @@ class TestCase extends BaseTestCase
 {
     use RefreshDatabase;
 
+	protected Client $client;
+
     /**
      * Setup the test environment.
      */
     protected function setUp(): void
     {
         parent::setUp();
+
+	    $this->client = new Client;
     }
 
     /**
