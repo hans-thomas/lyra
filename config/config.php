@@ -4,14 +4,14 @@
 	use Hans\Lyra\Gateways\Zarinpal;
 
 	return [
-		'default'  => Zarinpal::class,
+		'default'  => Payir::class,
 		'gateways' => [
 			Zarinpal::class => [
 				'mode' => 'normal',
 
-				'merchant_id'  => '104996d4-9460-11ea-b76a-000c295eb8fc',
+				'merchant_id'  => '',
 				'callback_url' => 'https://www.yoursite.com/verify.php',
-				'description'  => 'caption goes here.',
+				'description'  => '',
 				'metadata'     => [
 					"email"  => 'info@email.com',
 					"mobile" => '09121234567'
@@ -29,9 +29,9 @@
 						'verification' => 'https://sandbox.zarinpal.com/pg/v4/payment/verify.json',
 					],
 					'zaringate' => [
-						'purchase'     => 'https://ir.zarinpal.com/pg/services/WebGate/wsdl',
+						'purchase'     => 'https://api.zarinpal.com/pg/v4/payment/request.json',
 						'payment'      => 'https://www.zarinpal.com/pg/StartPay/:authority/ZarinGate',
-						'verification' => 'https://ir.zarinpal.com/pg/services/WebGate/wsdl',
+						'verification' => 'https://api.zarinpal.com/pg/v4/payment/verify.json',
 					]
 				],
 
