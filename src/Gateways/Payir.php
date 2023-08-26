@@ -86,6 +86,8 @@
 				return false;
 			}
 
+			// TODO: If transId exists on DB, throw an error: -6
+
 			// TODO: Store transId on DB
 
 			return true;
