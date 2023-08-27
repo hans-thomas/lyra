@@ -11,10 +11,12 @@
 		 *
 		 * @return void
 		 */
-		public function up() {
+		public function up(): void {
 			Schema::create( ( new Invoice )->getTable(), function( Blueprint $table ) {
-				$table->id()->from( 10000 );
-				$table->smallIncrements( 'number' )->from( 10000 ); // Max value: 65535
+				$table->id();
+				$table->smallInteger( 'number' ); // Max value: 65535
+				$table->string( 'token', 128 )->nullable()->unique();
+				$table->string( 'transaction_id', 256 )->nullable()->unique();
 				$table->timestamps();
 			} );
 		}
@@ -24,7 +26,7 @@
 		 *
 		 * @return void
 		 */
-		public function down() {
+		public function down(): void {
 			Schema::dropIfExists( ( new Invoice )->getTable() );
 		}
 	};
