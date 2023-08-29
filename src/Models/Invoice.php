@@ -7,8 +7,6 @@ namespace Hans\Lyra\Models;
     use Illuminate\Support\Collection;
 
     /**
-     * Attributes:.
-     *
      * @property int        $id
      * @property int        $number
      * @property int        $token
