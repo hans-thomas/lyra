@@ -4,12 +4,18 @@
 
 	use Illuminate\Database\Eloquent\Model;
 	use Illuminate\Database\Eloquent\Relations\HasMany;
+	use Illuminate\Support\Collection;
 
 	/**
-	 * @property int $id
-	 * @property int $number
-	 * @property int $token
-	 * @property int $transaction_id
+	 * Attributes:
+	 * @property int        $id
+	 * @property int        $number
+	 * @property int        $token
+	 * @property int        $transaction_id
+	 *
+	 *
+	 * Relationships:
+	 * @property Collection $items
 	 */
 	class Invoice extends Model {
 
