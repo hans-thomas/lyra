@@ -4,4 +4,6 @@
 
 	use Illuminate\Database\Eloquent\Relations\MorphPivot;
 
-	class Invoicable extends MorphPivot { }
+	class Invoicable extends MorphPivot {
+		protected $table = 'invoicables';
+	}
