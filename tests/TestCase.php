@@ -13,7 +13,7 @@ class TestCase extends BaseTestCase
 {
     use RefreshDatabase;
 
-	protected Client $client;
+    protected Client $client;
 
     /**
      * Setup the test environment.
@@ -21,9 +21,9 @@ class TestCase extends BaseTestCase
     protected function setUp(): void
     {
         parent::setUp();
-		$this->loadMigrationsFrom(__DIR__.'/Core/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/Core/migrations');
 
-	    $this->client = new Client;
+        $this->client = new Client();
     }
 
     /**
