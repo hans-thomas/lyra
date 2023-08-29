@@ -15,7 +15,7 @@
 			Schema::create( ( new Post )->getTable(), function( Blueprint $table ) {
 				$table->id();
 				$table->string( 'title' );
-				$table->text( 'description' );
+				$table->text( 'content' );
 				$table->timestamps();
 			} );
 		}
