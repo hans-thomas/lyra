@@ -1,21 +1,24 @@
 <?php
 
-	namespace Hans\Lyra\Listeners;
+namespace Hans\Lyra\Listeners;
 
-	use Hans\Lyra\Events\TransactionIdReceived;
+    use Hans\Lyra\Events\TransactionIdReceived;
 
-	class CheckTransIdIsUnique {
-		/**
-		 * Create the event listener.
-		 */
-		public function __construct() {
-			// ...
-		}
+    class CheckTransIdIsUnique
+    {
+        /**
+         * Create the event listener.
+         */
+        public function __construct()
+        {
+            // ...
+        }
 
-		/**
-		 * Handle the event.
-		 */
-		public function handle( TransactionIdReceived $event ): void {
-			// Access the order using $event->order...
-		}
-	}
+        /**
+         * Handle the event.
+         */
+        public function handle(TransactionIdReceived $event): void
+        {
+            // Access the order using $event->order...
+        }
+    }
