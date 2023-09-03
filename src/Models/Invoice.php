@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 
 /**
- * @property int $id
- * @property int $number
- * @property int $token
- * @property int $transaction_id
+ * @property int        $id
+ * @property int        $number
+ * @property int        $token
+ * @property int        $transaction_id
  * @property Collection $items
  */
 class Invoice extends Model
@@ -41,8 +41,9 @@ class Invoice extends Model
      *
      * @return void
      */
-    protected static function booted() {
-        self::creating(fn(self $model) => $model->number = generate_unique_invoice_number());
+    protected static function booted()
+    {
+        self::creating(fn (self $model) => $model->number = generate_unique_invoice_number());
     }
 
     /**
@@ -50,7 +51,8 @@ class Invoice extends Model
      *
      * @return HasMany
      */
-    public function items(): HasMany {
+    public function items(): HasMany
+    {
         return $this->hasMany(Invoicable::class)->latest();
     }
 }
