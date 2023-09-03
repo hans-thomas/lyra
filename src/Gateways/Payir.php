@@ -3,24 +3,25 @@
 namespace Hans\Lyra\Gateways;
 
 use Hans\Lyra\Contracts\Gateway;
+use Hans\Lyra\Models\Invoice;
 
 class Payir extends Gateway
 {
     public function request(): string
     {
-        $data = array_diff_key(
+        $data             = array_diff_key(
             $this->settings,
             array_flip(['mode', 'modes'])
         );
-        $data['amount'] = $this->amount;
-        $data = array_filter($data, fn ($item) => !empty($item));
+        $data[ 'amount' ] = $this->amount;
+        $data             = array_filter($data, fn ($item) => ! empty($item));
 
         if ($this->isSandboxEnabled()) {
-            $data['api'] = 'test';
+            $data[ 'api' ] = 'test';
         }
 
         $response = $this->client->post(
-            $this->apis()['purchase'],
+            $this->apis()[ 'purchase' ],
             [
                 'json'    => $data,
                 'headers' => [
@@ -30,13 +31,13 @@ class Payir extends Gateway
         )
                                  ->getBody()
                                  ->getContents();
-        $result = json_decode($response, true);
+        $result   = json_decode($response, true);
 
-        if ($result['status'] == 1) {
-            return $result['token'];
+        if ($result[ 'status' ] == 1) {
+            return $result[ 'token' ];
         }
 
-        throw new \Exception($this->translateError($result['errorCode']));
+        throw new \Exception($this->translateError($result[ 'errorCode' ]));
     }
 
     public function pay(string $token): string
@@ -44,14 +45,14 @@ class Payir extends Gateway
         return str_replace(
             ':token',
             $token,
-            $this->apis()['payment']
+            $this->apis()[ 'payment' ]
         );
     }
 
-    public function verify(): bool
+    public function verify(Invoice $invoice): bool
     {
         $status = request('status');
-        $token = request('token');
+        $token  = $this->getTokenFromRequest();
 
         if ($status != 1) {
             // User canceled the purchase
@@ -65,12 +66,12 @@ class Payir extends Gateway
         // TODO: Compare $token with stored token on pay stage
 
         $data = [
-            'api'   => $this->settings['api'],
+            'api'   => $this->settings[ 'api' ],
             'token' => $token,
         ];
 
         $response = $this->client->post(
-            $this->apis()['verification'],
+            $this->apis()[ 'verification' ],
             [
                 'json'    => $data,
                 'headers' => [
@@ -80,9 +81,9 @@ class Payir extends Gateway
         )
                                  ->getBody()
                                  ->getContents();
-        $result = json_decode($response, true);
+        $result   = json_decode($response, true);
 
-        if ($result['status'] !== 1) {
+        if ($result[ 'status' ] !== 1) {
             return false;
         }
 
@@ -92,6 +93,11 @@ class Payir extends Gateway
         // TODO: Store transId on DB
 
         return true;
+    }
+
+    public function getTokenFromRequest(): ?string
+    {
+        return request('token');
     }
 
     public function errorsList(): array

@@ -4,6 +4,7 @@ namespace Hans\Lyra\Gateways;
 
 use Exception;
 use Hans\Lyra\Contracts\Gateway;
+use Hans\Lyra\Models\Invoice;
 
 class Zarinpal extends Gateway
 {
@@ -46,10 +47,10 @@ class Zarinpal extends Gateway
         );
     }
 
-    public function verify(): bool
+    public function verify(Invoice $invoice): bool
     {
         $status = request('Status');
-        $authority = request('Authority');
+        $authority = $this->getTokenFromRequest();
 
         if ($status !== 'OK') {
             // User canceled the purchase
@@ -92,6 +93,11 @@ class Zarinpal extends Gateway
         // TODO: Store ref_id on DB
 
         return true;
+    }
+
+    public function getTokenFromRequest(): ?string
+    {
+        return request('Authority');
     }
 
     public function errorsList(): array
