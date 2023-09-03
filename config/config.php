@@ -4,8 +4,8 @@ use Hans\Lyra\Gateways\Payir;
 use Hans\Lyra\Gateways\Zarinpal;
 
 return [
-    'default'  => Payir::class,
     'gateways' => [
+        'default'       => Payir::class,
         Zarinpal::class => [
             'mode' => 'normal',
 
