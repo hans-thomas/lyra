@@ -22,14 +22,14 @@ class LyraService
 
     public function pay(int $amount): self
     {
-        if ( ! isset($this->gateway)) {
+        if (!isset($this->gateway)) {
             $this->gateway = $this->setGateway(lyra_config('gateways.default'), $amount);
         }
 
-        $token                    = $this->gateway->request();
-        $this->invoice->token     = $token;
-        $this->invoice->gateway   = $this->gateway::class;
-        $this->invoice->amount    = $this->gateway::class;
+        $token = $this->gateway->request();
+        $this->invoice->token = $token;
+        $this->invoice->gateway = $this->gateway::class;
+        $this->invoice->amount = $this->gateway::class;
         $this->gatewayRedirectUrl = $this->gateway->pay($token);
 
         return $this;
@@ -63,12 +63,13 @@ class LyraService
 
     public function verify(): bool
     {
-        if ( ! isset($this->gateway)) {
+        if (!isset($this->gateway)) {
             $this->gateway = $this->setGateway(lyra_config('gateways.default'));
         }
         $token = $this->gateway->getTokenFromRequest();
         if (is_null($token)) {
             $gatewayClass = get_class($this->gateway);
+
             throw LyraException::make(
                 "Wrong gateway [$gatewayClass] selected for verification!",
                 LyraErrorCode::WRONG_GATEWAY_CLASS_SELECTED
@@ -78,7 +79,7 @@ class LyraService
         $this->invoice = $this->findOrCreateInvoice($token);
         $this->gateway->setAmount($this->invoice->amount);
 
-        if ( ! $this->gateway->verify($this->invoice)) {
+        if (!$this->gateway->verify($this->invoice)) {
             throw LyraException::make(
                 "Verifying Invoice #{$this->invoice->number} failed!",
                 LyraErrorCode::FAILED_TO_VERIFYING
