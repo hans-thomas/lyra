@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 
 /**
- * @property int        $id
- * @property int        $number
- * @property int        $token
- * @property int        $transaction_id
+ * @property int $id
+ * @property int $number
+ * @property string $token
+ * @property int $transaction_id
+ * @property string $gateway
+ * @property Status $status
  * @property Collection $items
  */
 class Invoice extends Model
@@ -25,6 +27,8 @@ class Invoice extends Model
         'number',
         'token',
         'transaction_id',
+        'gateway',
+        'status',
     ];
 
     /**
