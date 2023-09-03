@@ -25,7 +25,7 @@ namespace Hans\Lyra\Contracts;
 
         abstract public function request(): string;
 
-        abstract public function pay(): string;
+        abstract public function pay(string $token): string;
 
         abstract public function verify(): bool;
 

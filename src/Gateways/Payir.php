@@ -39,11 +39,8 @@ namespace Hans\Lyra\Gateways;
             throw new \Exception($this->translateError($result['errorCode']));
         }
 
-        public function pay(): string
+        public function pay(string $token): string
         {
-            // TODO: Store token on DB
-            $token = $this->request();
-
             return str_replace(
                 ':token',
                 $token,
@@ -89,8 +86,9 @@ namespace Hans\Lyra\Gateways;
                 return false;
             }
 
-            // TODO: If transId exists on DB, throw an error: -6
+			// TransactionIdReceived
 
+            // TODO: If transId exists on DB, throw an error: -6
             // TODO: Store transId on DB
 
             return true;

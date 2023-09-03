@@ -37,14 +37,11 @@ namespace Hans\Lyra\Gateways;
             throw new Exception($this->translateError($result['errors']['code']));
         }
 
-        public function pay(): string
+        public function pay(string $token): string
         {
-            // TODO: Store authority on DB
-            $authority = $this->request();
-
             return str_replace(
                 ':authority',
-                $authority,
+                $token,
                 $this->apis()['payment']
             );
         }
