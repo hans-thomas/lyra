@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 
 /**
- * @property int $id
- * @property int $number
- * @property string $token
- * @property int $transaction_id
- * @property string $gateway
- * @property int $amount
- * @property Status $status
+ * @property int        $id
+ * @property int        $number
+ * @property string     $token
+ * @property int        $transaction_id
+ * @property string     $gateway
+ * @property int        $amount
+ * @property Status     $status
  * @property Collection $items
  */
 class Invoice extends Model
@@ -40,7 +40,7 @@ class Invoice extends Model
      */
     protected $casts = [
         'status' => Status::class,
-        'amount' => 'decimal'
+        'amount' => 'decimal',
     ];
 
     /**
