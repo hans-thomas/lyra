@@ -12,7 +12,8 @@ return new class() extends Migration {
      *
      * @return void
      */
-    public function up(): void {
+    public function up(): void
+    {
         Schema::create((new Invoice())->getTable(), function (Blueprint $table) {
             $table->id();
             $table->smallInteger('number'); // Max value: 65535
@@ -29,7 +30,8 @@ return new class() extends Migration {
      *
      * @return void
      */
-    public function down(): void {
+    public function down(): void
+    {
         Schema::dropIfExists((new Invoice())->getTable());
     }
 };
