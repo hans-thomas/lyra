@@ -13,6 +13,7 @@ use Illuminate\Support\Collection;
  * @property string $token
  * @property int $transaction_id
  * @property string $gateway
+ * @property int $amount
  * @property Status $status
  * @property Collection $items
  */
@@ -28,6 +29,7 @@ class Invoice extends Model
         'token',
         'transaction_id',
         'gateway',
+        'amount',
         'status',
     ];
 
@@ -38,6 +40,7 @@ class Invoice extends Model
      */
     protected $casts = [
         'status' => Status::class,
+        'amount' => 'decimal'
     ];
 
     /**
