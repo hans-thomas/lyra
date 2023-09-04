@@ -27,9 +27,12 @@ class LyraService
         }
 
         $token = $this->gateway->request();
+
         $this->invoice->token = $token;
         $this->invoice->gateway = $this->gateway::class;
-        $this->invoice->amount = $this->gateway::class;
+        $this->invoice->amount = $amount;
+        $this->invoice->save();
+
         $this->gatewayRedirectUrl = $this->gateway->pay($token);
 
         return $this;
@@ -80,6 +83,9 @@ class LyraService
         $this->gateway->setAmount($this->invoice->amount);
 
         if (!$this->gateway->verify($this->invoice)) {
+            $this->invoice->status = Status::FAILED;
+            $this->invoice->save();
+
             throw LyraException::make(
                 "Verifying Invoice #{$this->invoice->number} failed!",
                 LyraErrorCode::FAILED_TO_VERIFYING
@@ -87,6 +93,7 @@ class LyraService
         }
 
         $this->invoice->status = Status::SUCCESS;
+        $this->invoice->save();
 
         return true;
     }
@@ -100,8 +107,8 @@ class LyraService
         return Invoice::query()->where('token', $token)->firstOrFail();
     }
 
-    public function __destruct()
+    public function getInvoice(): Invoice
     {
-        $this->invoice->save();
+        return $this->invoice;
     }
 }
