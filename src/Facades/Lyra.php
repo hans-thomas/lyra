@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\Facade;
 use RuntimeException;
 
 /**
- * @method static LyraService pay(int $amount)
- * @method static string getRedirectUrl()
+ * @method static LyraService      pay(int $amount)
+ * @method static string           getRedirectUrl()
  * @method static RedirectResponse redirect()
- * @method static LyraService setGateway(string $gateway, int $amount = null, string $mode = null)
- * @method static bool verify()
- * @method static Invoice getInvoice()
+ * @method static LyraService      setGateway(string $gateway, int $amount = null, string $mode = null)
+ * @method static bool             verify()
+ * @method static Invoice          getInvoice()
  *
  * @see LyraService
  */
@@ -23,9 +23,9 @@ class Lyra extends Facade
     /**
      * Get the registered name of the component.
      *
-     * @return string
-     *
      * @throws RuntimeException
+     *
+     * @return string
      */
     protected static function getFacadeAccessor()
     {
