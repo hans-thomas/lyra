@@ -40,7 +40,6 @@ class Invoice extends Model
      */
     protected $casts = [
         'status' => Status::class,
-        'amount' => 'decimal',
     ];
 
     /**
