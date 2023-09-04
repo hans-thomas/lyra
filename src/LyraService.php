@@ -22,6 +22,7 @@ class LyraService
 
     public function pay(int $amount): self
     {
+        // TODO: accepts $amount if gateway is not set
         if (!isset($this->gateway)) {
             $this->gateway = $this->setGateway(lyra_config('gateways.default'), $amount);
         }
@@ -30,7 +31,7 @@ class LyraService
 
         $this->invoice->token = $token;
         $this->invoice->gateway = $this->gateway::class;
-        $this->invoice->amount = $amount;
+        $this->invoice->amount = $amount; // TODO: get amount from gateway
         $this->invoice->save();
 
         $this->gatewayRedirectUrl = $this->gateway->pay($token);
