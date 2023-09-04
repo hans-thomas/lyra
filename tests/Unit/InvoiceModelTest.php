@@ -103,7 +103,7 @@ class InvoiceModelTest extends TestCase
     protected function makeInvoice(array $data = []): Invoice
     {
         return Invoice::query()
-                      ->create(array_merge(['gateway' => Payir::class, 'amount' => rand(10, 5000)/10], $data))
+                      ->create(array_merge(['gateway' => Payir::class, 'amount' => rand(10, 5000) / 10], $data))
                       ->refresh();
     }
 
