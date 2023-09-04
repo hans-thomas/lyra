@@ -30,7 +30,7 @@ class PayirTest extends TestCase
     public function requestWithInvalidSettings(): void
     {
         Lyra::setGateway(Payir::class, 1, 'sandbox');
-        $instance = new Payir;
+        $instance = new Payir();
 
         $this->expectExceptionMessage($instance->errorsList()[-12]);
         self::assertIsString(Lyra::pay(1));
