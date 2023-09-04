@@ -75,8 +75,8 @@ class Payir extends Gateway
 
         if ($this->isSandboxEnabled()) {
             $result = [
-                "status"       => 1,
-                "transId"      => 'fake-static-transId',
+                'status'       => 1,
+                'transId'      => 'fake-static-transId',
             ];
         } else {
             $response = $this->client->post(

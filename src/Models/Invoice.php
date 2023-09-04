@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
  * @property int        $id
  * @property int        $number
  * @property string     $token
- * @property string        $transaction_id
+ * @property string     $transaction_id
  * @property string     $gateway
  * @property int        $amount
  * @property Status     $status
