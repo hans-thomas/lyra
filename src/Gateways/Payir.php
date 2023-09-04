@@ -3,6 +3,8 @@
 namespace Hans\Lyra\Gateways;
 
 use Hans\Lyra\Contracts\Gateway;
+use Hans\Lyra\Exceptions\LyraErrorCode;
+use Hans\Lyra\Exceptions\LyraException;
 use Hans\Lyra\Models\Invoice;
 
 class Payir extends Gateway
@@ -54,16 +56,21 @@ class Payir extends Gateway
         $status = request('status');
         $token = $this->getTokenFromRequest();
 
+        // User canceled the purchase
         if ($status != 1) {
-            // User canceled the purchase
             return false;
+        }
+
+        if ($invoice->token !== $token) {
+            throw LyraException::make(
+                'Token mismatched!',
+                LyraErrorCode::TOKEN_MISMATCHED
+            );
         }
 
         if ($this->isSandboxEnabled()) {
             return true;
         }
-
-        // TODO: Compare $token with stored token on pay stage
 
         $data = [
             'api'   => $this->settings['api'],
@@ -87,10 +94,14 @@ class Payir extends Gateway
             return false;
         }
 
-        // TransactionIdReceived
+        // TODO: fire event
 
-        // TODO: If transId exists on DB, throw an error: -6
-        // TODO: Store transId on DB
+        if (Invoice::query()->where('transaction_id', $result['transId'])->exists()) {
+            throw new \Exception($this->translateError(-6));
+        }
+
+        $invoice->transaction_id = $result['transId'];
+        $invoice->save();
 
         return true;
     }
