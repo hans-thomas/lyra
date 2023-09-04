@@ -20,18 +20,24 @@ class LyraService
         $this->invoice = $this->findOrCreateInvoice();
     }
 
-    public function pay(int $amount): self
+    public function pay(): self
     {
-        // TODO: accepts $amount if gateway is not set
         if (!isset($this->gateway)) {
-            $this->gateway = $this->setGateway(lyra_config('gateways.default'), $amount);
+            throw_if(
+                func_num_args() == 0,
+                LyraException::make(
+                    'Amount of payment is not passed!',
+                    LyraErrorCode::AMOUNT_NOT_PASSED
+                )
+            );
+            $this->gateway = $this->setGateway(lyra_config('gateways.default'), func_get_args()[0]);
         }
 
         $token = $this->gateway->request();
 
         $this->invoice->token = $token;
-        $this->invoice->gateway = $this->gateway::class;
-        $this->invoice->amount = $amount; // TODO: get amount from gateway
+        $this->invoice->gateway = get_class($this->gateway);
+        $this->invoice->amount = $this->gateway->getAmount();
         $this->invoice->save();
 
         $this->gatewayRedirectUrl = $this->gateway->pay($token);
