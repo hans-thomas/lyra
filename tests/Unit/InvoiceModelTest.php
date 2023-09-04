@@ -77,26 +77,26 @@ class InvoiceModelTest extends TestCase
 
         self::assertInstanceOf(Invoicable::class, $model->items[0]);
         self::assertEquals(
-            $model->items[0]->toArray(),
             [
                 'invoice_id'      => 1,
                 'invoicable_type' => "Hans\Lyra\Tests\Core\Models\Product",
                 'invoicable_id'   => 1,
                 'created_at'      => null,
                 'updated_at'      => null,
-            ]
+            ],
+            $model->items[0]->toArray()
         );
 
         self::assertInstanceOf(Invoicable::class, $model->items[1]);
         self::assertEquals(
-            $model->items[1]->toArray(),
             [
                 'invoice_id'      => 1,
                 'invoicable_type' => "Hans\Lyra\Tests\Core\Models\Post",
                 'invoicable_id'   => 1,
                 'created_at'      => null,
                 'updated_at'      => null,
-            ]
+            ],
+            $model->items[1]->toArray()
         );
     }
 
