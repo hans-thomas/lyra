@@ -5,6 +5,6 @@ namespace Hans\Lyra\Helpers\Enums;
 enum Status
 {
     case PENDING;
-    case CANCELED;
+    case FAILED;
     case SUCCESS;
 }
