@@ -20,7 +20,7 @@ class LyraServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton('lyra-service', LyraService::class);
     }
 
     /**
