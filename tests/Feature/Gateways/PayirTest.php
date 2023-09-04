@@ -19,7 +19,7 @@ class PayirTest extends TestCase
     {
         Lyra::setGateway(Payir::class, 10000, 'sandbox');
 
-        self::assertIsString(Lyra::pay(1)->getRedirectUrl());
+        self::assertIsString(Lyra::pay()->getRedirectUrl());
     }
 
     /**
@@ -33,7 +33,7 @@ class PayirTest extends TestCase
         $instance = new Payir();
 
         $this->expectExceptionMessage($instance->errorsList()[-12]);
-        self::assertIsString(Lyra::pay(1));
+        self::assertIsString(Lyra::pay());
     }
 
     /**
@@ -45,7 +45,7 @@ class PayirTest extends TestCase
     {
         Lyra::setGateway(Payir::class, 10000, 'sandbox');
 
-        self::assertIsString($url = Lyra::pay(10000)->getRedirectUrl());
+        self::assertIsString($url = Lyra::pay()->getRedirectUrl());
         $response = $this->client->get($url)->getBody()->getContents();
         self::assertStringContainsString('درگاه تست Pay.ir', $response);
     }
@@ -60,7 +60,7 @@ class PayirTest extends TestCase
         Lyra::setGateway(Payir::class, 10000, 'sandbox');
         $invoice = Lyra::getInvoice();
 
-        $url = Lyra::pay(10000)->getRedirectUrl();
+        $url = Lyra::pay()->getRedirectUrl();
         $token = Str::afterLast($url, '/');
         request()->merge(['status' => 1, 'token' => $token]);
 
@@ -81,7 +81,7 @@ class PayirTest extends TestCase
     {
         Lyra::setGateway(Payir::class, 10000, 'sandbox');
 
-        $url = Lyra::pay(10000)->getRedirectUrl();
+        $url = Lyra::pay()->getRedirectUrl();
         $token = Str::afterLast($url, '/');
         request()->merge(['status' => 1, 'token' => $token]);
 
@@ -102,7 +102,7 @@ class PayirTest extends TestCase
     {
         Lyra::setGateway(Payir::class, 10000, 'sandbox');
 
-        $url = Lyra::pay(10000)->getRedirectUrl();
+        $url = Lyra::pay()->getRedirectUrl();
         $token = Str::afterLast($url, '/');
         request()->merge(['status' => 0, 'token' => $token]);
 

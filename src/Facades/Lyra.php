@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Facade;
 use RuntimeException;
 
 /**
- * @method static LyraService      pay(int $amount)
+ * @method static LyraService      pay(int $amount=null)
  * @method static string           getRedirectUrl()
  * @method static RedirectResponse redirect()
  * @method static LyraService      setGateway(string $gateway, int $amount = null, string $mode = null)
