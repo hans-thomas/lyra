@@ -21,7 +21,7 @@ return new class() extends Migration {
             $table->string('transaction_id', 256)->nullable()->unique();
             $table->string('gateway');
             $table->unsignedDecimal('amount', 10);
-            $table->string('status', 32)->default(Status::PENDING);
+            $table->string('status', 32)->default(Status::PENDING->name);
             $table->timestamps();
         });
     }
