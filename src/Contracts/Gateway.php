@@ -59,4 +59,12 @@ abstract class Gateway
 
         return $this;
     }
+
+    /**
+     * @return int|null
+     */
+    public function getAmount(): ?int
+    {
+        return $this->amount;
+    }
 }
