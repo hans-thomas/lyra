@@ -58,10 +58,37 @@ class PayirTest extends TestCase
     public function verifyOnSuccess(): void
     {
         Lyra::setGateway(Payir::class, 10000, 'sandbox');
+        $invoice = Lyra::getInvoice();
 
         $url = Lyra::pay(10000)->getRedirectUrl();
         $token = Str::afterLast($url, '/');
         request()->merge(['status' => 1, 'token' => $token]);
+
+        self::assertNull($invoice->transaction_id);
+
+        self::assertTrue(Lyra::verify());
+        $invoice->refresh();
+
+        self::assertIsString($invoice->transaction_id);
+    }
+
+    /**
+     * @test
+     *
+     * @return void
+     */
+    public function verifyOnDuplicateVerification(): void
+    {
+        Lyra::setGateway(Payir::class, 10000, 'sandbox');
+
+        $url = Lyra::pay(10000)->getRedirectUrl();
+        $token = Str::afterLast($url, '/');
+        request()->merge(['status' => 1, 'token' => $token]);
+
+        self::assertTrue(Lyra::verify());
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('تراکنش تکراریست یا قبلا انجام شده');
 
         self::assertTrue(Lyra::verify());
     }

@@ -68,27 +68,30 @@ class Payir extends Gateway
             );
         }
 
-        if ($this->isSandboxEnabled()) {
-            return true;
-        }
-
         $data = [
             'api'   => $this->settings['api'],
             'token' => $token,
         ];
 
-        $response = $this->client->post(
-            $this->apis()['verification'],
-            [
-                'json'    => $data,
-                'headers' => [
-                    'Accept' => 'application/json',
-                ],
-            ]
-        )
-                                 ->getBody()
-                                 ->getContents();
-        $result = json_decode($response, true);
+        if ($this->isSandboxEnabled()) {
+            $result = [
+                "status"       => 1,
+                "transId"      => 'fake-static-transId',
+            ];
+        } else {
+            $response = $this->client->post(
+                $this->apis()['verification'],
+                [
+                    'json'    => $data,
+                    'headers' => [
+                        'Accept' => 'application/json',
+                    ],
+                ]
+            )
+                                     ->getBody()
+                                     ->getContents();
+            $result = json_decode($response, true);
+        }
 
         if ($result['status'] !== 1) {
             return false;
