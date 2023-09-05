@@ -30,7 +30,7 @@ class LyraService
                     LyraErrorCode::AMOUNT_NOT_PASSED
                 )
             );
-            $this->gateway = $this->setGateway(lyra_config('gateways.default'), func_get_args()[0]);
+            $this->setGateway(lyra_config('gateways.default'), ...func_get_args());
         }
 
         $token = $this->gateway->request();
@@ -64,9 +64,7 @@ class LyraService
                 LyraErrorCode::GATEWAY_CLASS_NOT_FOUNT
             )
         );
-        $gateway = new $gateway($amount, $mode);
-
-        $this->gateway = $gateway;
+        $this->gateway = new $gateway($amount, $mode);
 
         return $this;
     }
@@ -74,7 +72,14 @@ class LyraService
     public function verify(): bool
     {
         if (!isset($this->gateway)) {
-            $this->gateway = $this->setGateway(lyra_config('gateways.default'));
+            throw_if(
+                func_num_args() == 0,
+                LyraException::make(
+                    'Amount of payment is not passed!',
+                    LyraErrorCode::AMOUNT_NOT_PASSED
+                )
+            );
+            $this->setGateway(lyra_config('gateways.default'), ...func_get_args());
         }
         $token = $this->gateway->getTokenFromRequest();
         if (is_null($token)) {
@@ -116,6 +121,6 @@ class LyraService
 
     public function getInvoice(): Invoice
     {
-        return $this->invoice;
+        return $this->invoice->refresh();
     }
 }
