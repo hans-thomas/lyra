@@ -13,7 +13,6 @@ use Illuminate\Http\RedirectResponse;
 
 class LyraServiceTest extends TestCase
 {
-
     /**
      * @test
      *
@@ -42,8 +41,10 @@ class LyraServiceTest extends TestCase
     {
         $url = Lyra::pay(10000, 'sandbox')->getRedirectUrl();
         self::assertIsString($url);
-        self::assertMatchesRegularExpression('/http[[:alpha:]]?:\/\/(www\.)?(.+\.)?[[:alpha:]]+\.[[:alpha:]]+(\/.*)/i',
-            $url);
+        self::assertMatchesRegularExpression(
+            '/http[[:alpha:]]?:\/\/(www\.)?(.+\.)?[[:alpha:]]+\.[[:alpha:]]+(\/.*)/i',
+            $url
+        );
     }
 
     /**
@@ -86,7 +87,7 @@ class LyraServiceTest extends TestCase
         Lyra::pay(10000, 'sandbox');
         request()->merge([
             'status' => 1,
-            'token'  => Lyra::getInvoice()->token
+            'token'  => Lyra::getInvoice()->token,
         ]);
         Lyra::swap(new LyraService());
         self::assertTrue(Lyra::verify(10000, 'sandbox'));
@@ -103,7 +104,7 @@ class LyraServiceTest extends TestCase
         $invoice = Lyra::getInvoice();
         request()->merge([
             'status' => 0, // For instance, user canceled the payment
-            'token'  => $invoice->token
+            'token'  => $invoice->token,
         ]);
         self::expectException(LyraException::class);
         $this->expectExceptionMessage("Verifying Invoice #{$invoice->number} failed!");
@@ -122,13 +123,13 @@ class LyraServiceTest extends TestCase
         $invoice = Lyra::getInvoice();
         request()->merge([
             'status' => 1, // For instance, user canceled the payment
-            'token'  => $invoice->token
+            'token'  => $invoice->token,
         ]);
 
         self::assertTrue(Lyra::verify());
 
         self::expectException(\Exception::class);
-        $this->expectExceptionMessage("تراکنش تکراریست یا قبلا انجام شده.");
+        $this->expectExceptionMessage('تراکنش تکراریست یا قبلا انجام شده.');
 
         Lyra::verify();
     }
@@ -143,7 +144,7 @@ class LyraServiceTest extends TestCase
         Lyra::pay(10000, 'sandbox');
         request()->merge([
             'status' => 1,
-            'token'  => Lyra::getInvoice()->token
+            'token'  => Lyra::getInvoice()->token,
         ]);
         Lyra::swap(new LyraService());
         Lyra::setGateway(Zarinpal::class, 10000, 'sandbox');
@@ -153,5 +154,4 @@ class LyraServiceTest extends TestCase
 
         Lyra::verify();
     }
-
 }
