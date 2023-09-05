@@ -29,7 +29,7 @@ class TestCase extends BaseTestCase
     /**
      * Get application timezone.
      *
-     * @param Application $app
+     * @param  Application  $app
      *
      * @return string|null
      */
@@ -41,7 +41,7 @@ class TestCase extends BaseTestCase
     /**
      * Get package providers.
      *
-     * @param Application $app
+     * @param  Application  $app
      *
      * @return array
      */
@@ -55,7 +55,7 @@ class TestCase extends BaseTestCase
     /**
      * Override application aliases.
      *
-     * @param Application $app
+     * @param  Application  $app
      *
      * @return array
      */
@@ -67,7 +67,7 @@ class TestCase extends BaseTestCase
     /**
      * Define environment setup.
      *
-     * @param Application $app
+     * @param  Application  $app
      *
      * @return void
      */
@@ -85,12 +85,12 @@ class TestCase extends BaseTestCase
     /**
      * Define routes setup.
      *
-     * @param Router $router
+     * @param  Router  $router
      *
      * @return void
      */
     protected function defineRoutes($router)
     {
-            //
+        //
     }
 }
