@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Facade;
 use RuntimeException;
 
 /**
- * @method static LyraService      pay(int $amount=null)
+ * @method static LyraService      pay(int $amount=null, string $mode=null)
  * @method static string           getRedirectUrl()
  * @method static RedirectResponse redirect()
  * @method static LyraService      setGateway(string $gateway, int $amount = null, string $mode = null)
- * @method static bool             verify()
+ * @method static bool             verify(int $amount=null, string $mode=null)
  * @method static Invoice          getInvoice()
  *
  * @see LyraService
