@@ -1,5 +1,6 @@
 <?php
 
+use Hans\Lyra\Gateways\IDPay;
 use Hans\Lyra\Gateways\Payir;
 use Hans\Lyra\Gateways\Zarinpal;
 
@@ -40,7 +41,6 @@ return [
             'mode' => 'normal',
 
             'api'             => '',
-            'amount'          => '',
             'redirect'        => 'https://Your-CallBack-URL',
             // optional parameters:
             'mobile'          => '',
@@ -61,5 +61,27 @@ return [
                 ],
             ],
         ],
+        IDPay::class    => [
+            'mode' => 'normal',
+
+            'X-API-KEY' => '',
+            'phone'     => '',
+            'name'      => '',
+            'desc'      => '',
+            'callback'  => 'https://Your-CallBack-URL',
+
+            'modes' => [
+                'normal'  => [
+                    'purchase'     => 'https://api.idpay.ir/v1.1/payment',
+                    'payment'      => 'https://idpay.ir/p/ws/',
+                    'verification' => 'https://api.idpay.ir/v1.1/payment/verify',
+                ],
+                'sandbox' => [
+                    'purchase'     => 'https://api.idpay.ir/v1.1/payment',
+                    'payment'      => 'https://idpay.ir/p/ws-sandbox/',
+                    'verification' => 'https://api.idpay.ir/v1.1/payment/verify',
+                ]
+            ]
+        ]
     ],
 ];
