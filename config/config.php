@@ -80,8 +80,8 @@ return [
                     'purchase'     => 'https://api.idpay.ir/v1.1/payment',
                     'payment'      => 'https://idpay.ir/p/ws-sandbox/',
                     'verification' => 'https://api.idpay.ir/v1.1/payment/verify',
-                ]
-            ]
-        ]
+                ],
+            ],
+        ],
     ],
 ];
