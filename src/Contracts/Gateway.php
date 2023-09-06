@@ -24,7 +24,7 @@ abstract class Gateway
         }
     }
 
-    abstract public function request(): string;
+    abstract public function request(int|string $order_id = null): string;
 
     abstract public function pay(string $token): string;
 

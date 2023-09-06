@@ -33,11 +33,13 @@ class LyraService
             $this->setGateway(lyra_config('gateways.default'), ...func_get_args());
         }
 
-        $token = $this->gateway->request();
+        $invoiceNumber = generate_unique_invoice_number();
+        $token = $this->gateway->request($invoiceNumber);
 
         $this->invoice->token = $token;
         $this->invoice->gateway = get_class($this->gateway);
         $this->invoice->amount = $this->gateway->getAmount();
+        $this->invoice->number = $invoiceNumber;
         $this->invoice->save();
 
         $this->gatewayRedirectUrl = $this->gateway->pay($token);
