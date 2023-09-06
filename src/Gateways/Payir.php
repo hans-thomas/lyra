@@ -9,7 +9,7 @@ use Hans\Lyra\Models\Invoice;
 
 class Payir extends Gateway
 {
-    public function request(): string
+    public function request(int|string $order_id = null): string
     {
         $data = array_diff_key(
             $this->settings,
