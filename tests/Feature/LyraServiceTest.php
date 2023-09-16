@@ -6,7 +6,6 @@ use Hans\Lyra\Exceptions\LyraException;
 use Hans\Lyra\Facades\Lyra;
 use Hans\Lyra\Gateways\IDPay;
 use Hans\Lyra\Gateways\Payir;
-use Hans\Lyra\Gateways\Zarinpal;
 use Hans\Lyra\Helpers\Enums\Status;
 use Hans\Lyra\LyraService;
 use Hans\Lyra\Tests\TestCase;

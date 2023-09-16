@@ -2,23 +2,23 @@
 
 namespace Hans\Lyra\Listeners;
 
-    use Hans\Lyra\Events\TransactionIdReceived;
+use Hans\Lyra\Events\TransactionIdReceived;
 
-    class StoreTransIdOnDB
+class StoreTransIdOnDB
+{
+    /**
+     * Create the event listener.
+     */
+    public function __construct()
     {
-        /**
-         * Create the event listener.
-         */
-        public function __construct()
-        {
-            // ...
-        }
-
-        /**
-         * Handle the event.
-         */
-        public function handle(TransactionIdReceived $event): void
-        {
-            // Access the order using $event->order...
-        }
+        // ...
     }
+
+    /**
+     * Handle the event.
+     */
+    public function handle(TransactionIdReceived $event): void
+    {
+        // Access the order using $event->order...
+    }
+}

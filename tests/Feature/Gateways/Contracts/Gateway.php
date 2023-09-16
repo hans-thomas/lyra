@@ -4,15 +4,15 @@ namespace Hans\Lyra\Tests\Feature\Gateways\Contracts;
 
 interface Gateway
 {
-    function request(): void;
+    public function request(): void;
 
-    function requestWithInvalidSettings(): void;
+    public function requestWithInvalidSettings(): void;
 
-    function pay(): void;
+    public function pay(): void;
 
-    function verifyOnSuccess(): void;
+    public function verifyOnSuccess(): void;
 
-    function verifyOnDuplicateVerification(): void;
+    public function verifyOnDuplicateVerification(): void;
 
-    function verifyOnFailed(): void;
+    public function verifyOnFailed(): void;
 }
