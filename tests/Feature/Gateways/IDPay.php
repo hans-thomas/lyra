@@ -5,11 +5,11 @@ namespace Hans\Lyra\Tests\Feature\Gateways;
 use Hans\Lyra\Exceptions\LyraException;
 use Hans\Lyra\Facades\Lyra;
 use Hans\Lyra\Gateways\IDPay;
-use Hans\Lyra\Tests\Feature\Gateways\Contracts\GatewayTest;
+use Hans\Lyra\Tests\Feature\Gateways\Contracts\Gateway;
 use Hans\Lyra\Tests\TestCase;
 use Illuminate\Support\Str;
 
-class IDPayTest extends TestCase implements GatewayTest
+class IDPay extends TestCase implements Gateway
 {
     /**
      * @test

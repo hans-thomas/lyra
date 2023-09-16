@@ -5,11 +5,11 @@ namespace Hans\Lyra\Tests\Feature\Gateways;
 use Hans\Lyra\Exceptions\LyraException;
 use Hans\Lyra\Facades\Lyra;
 use Hans\Lyra\Gateways\Payir;
-use Hans\Lyra\Tests\Feature\Gateways\Contracts\GatewayTest;
+use Hans\Lyra\Tests\Feature\Gateways\Contracts\Gateway;
 use Hans\Lyra\Tests\TestCase;
 use Illuminate\Support\Str;
 
-class PayirTest extends TestCase implements GatewayTest
+class Payir extends TestCase implements Gateway
 {
     /**
      * @test

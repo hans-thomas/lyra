@@ -2,7 +2,7 @@
 
 namespace Hans\Lyra\Tests\Feature\Gateways\Contracts;
 
-interface GatewayTest
+interface Gateway
 {
     function request(): void;
 
