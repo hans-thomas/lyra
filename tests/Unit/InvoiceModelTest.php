@@ -28,7 +28,7 @@ class InvoiceModelTest extends TestCase
         self::assertIsInt($model->number);
         self::assertLessThan(65535, $model->number);
         self::assertIsString($model->gateway);
-        self::assertIsFloat($model->amount);
+        self::assertIsInt($model->amount);
         self::assertInstanceOf(Status::class, $model->status);
         self::assertEquals(Status::PENDING, $model->status);
 
@@ -46,6 +46,7 @@ class InvoiceModelTest extends TestCase
         $model = $this->makeInvoice([
             'token'          => $token = Str::random(),
             'transaction_id' => $transId = Str::random(),
+            'amount'         => $amount = 5.99
         ]);
 
         self::assertIsString($model->token);
@@ -53,6 +54,9 @@ class InvoiceModelTest extends TestCase
 
         self::assertIsString($model->transaction_id);
         self::assertEquals($transId, $model->transaction_id);
+
+        self::assertIsFloat($model->amount);
+        self::assertEquals($amount, $model->amount);
     }
 
     /**
@@ -103,7 +107,7 @@ class InvoiceModelTest extends TestCase
     protected function makeInvoice(array $data = []): Invoice
     {
         return Invoice::query()
-                      ->create(array_merge(['gateway' => Payir::class, 'amount' => rand(10, 5000) / 10], $data))
+                      ->create(array_merge(['gateway' => Payir::class, 'amount' => rand(10, 5000)], $data))
                       ->refresh();
     }
 
