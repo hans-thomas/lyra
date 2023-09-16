@@ -68,7 +68,7 @@ class IDPay extends TestCase implements Gateway
             'status'   => 100,
             'track_id' => rand(10, 99),
             'id'       => $id,
-            'order_id' => $invoice->number
+            'order_id' => $invoice->number,
         ]);
 
         self::assertNull($invoice->transaction_id);
@@ -95,13 +95,13 @@ class IDPay extends TestCase implements Gateway
             'status'   => 100,
             'track_id' => rand(10, 99),
             'id'       => $id,
-            'order_id' => $invoice->number
+            'order_id' => $invoice->number,
         ]);
 
         self::assertTrue(Lyra::verify());
 
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage((new $invoice->gateway)->errorsList()[53]);
+        $this->expectExceptionMessage((new $invoice->gateway())->errorsList()[53]);
 
         Lyra::verify();
     }
@@ -122,7 +122,7 @@ class IDPay extends TestCase implements Gateway
             'status'   => 1,
             'track_id' => rand(10, 99),
             'id'       => $id,
-            'order_id' => $invoice->number
+            'order_id' => $invoice->number,
         ]);
 
         $this->expectException(LyraException::class);

@@ -46,7 +46,7 @@ class InvoiceModelTest extends TestCase
         $model = $this->makeInvoice([
             'token'          => $token = Str::random(),
             'transaction_id' => $transId = Str::random(),
-            'amount'         => $amount = 5.99
+            'amount'         => $amount = 5.99,
         ]);
 
         self::assertIsString($model->token);

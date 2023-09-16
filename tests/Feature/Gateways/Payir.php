@@ -90,7 +90,7 @@ class Payir extends TestCase implements Gateway
         self::assertTrue(Lyra::verify());
 
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage((new $invoice->gateway)->errorsList()[-6]);
+        $this->expectExceptionMessage((new $invoice->gateway())->errorsList()[-6]);
 
         Lyra::verify();
     }

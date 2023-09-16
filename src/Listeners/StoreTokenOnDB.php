@@ -2,23 +2,23 @@
 
 namespace Hans\Lyra\Listeners;
 
-    use Hans\Lyra\Events\TokenReceived;
+use Hans\Lyra\Events\TokenReceived;
 
-    class StoreTokenOnDB
+class StoreTokenOnDB
+{
+    /**
+     * Create the event listener.
+     */
+    public function __construct()
     {
-        /**
-         * Create the event listener.
-         */
-        public function __construct()
-        {
-            // ...
-        }
-
-        /**
-         * Handle the event.
-         */
-        public function handle(TokenReceived $event): void
-        {
-            // Access the order using $event->order...
-        }
+        // ...
     }
+
+    /**
+     * Handle the event.
+     */
+    public function handle(TokenReceived $event): void
+    {
+        // Access the order using $event->order...
+    }
+}
