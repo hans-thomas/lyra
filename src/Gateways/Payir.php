@@ -93,7 +93,7 @@ class Payir extends Gateway
             $result = json_decode($response, true);
         }
 
-        if ($result['status'] !== 1) {
+        if ($result['status'] != 1) {
             return false;
         }
         // TODO: fire event
