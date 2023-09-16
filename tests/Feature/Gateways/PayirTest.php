@@ -5,10 +5,11 @@ namespace Hans\Lyra\Tests\Feature\Gateways;
 use Hans\Lyra\Exceptions\LyraException;
 use Hans\Lyra\Facades\Lyra;
 use Hans\Lyra\Gateways\Payir;
+use Hans\Lyra\Tests\Feature\Gateways\Contracts\GatewayTest;
 use Hans\Lyra\Tests\TestCase;
 use Illuminate\Support\Str;
 
-class PayirTest extends TestCase
+class PayirTest extends TestCase implements GatewayTest
 {
     /**
      * @test
@@ -80,6 +81,7 @@ class PayirTest extends TestCase
     public function verifyOnDuplicateVerification(): void
     {
         Lyra::setGateway(Payir::class, 10000, 'sandbox');
+        $invoice = Lyra::getInvoice();
 
         $url = Lyra::pay()->getRedirectUrl();
         $token = Str::afterLast($url, '/');
@@ -88,9 +90,9 @@ class PayirTest extends TestCase
         self::assertTrue(Lyra::verify());
 
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('تراکنش تکراریست یا قبلا انجام شده');
+        $this->expectExceptionMessage((new $invoice->gateway)->errorsList()[-6]);
 
-        self::assertTrue(Lyra::verify());
+        Lyra::verify();
     }
 
     /**
