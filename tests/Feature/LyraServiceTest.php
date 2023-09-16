@@ -4,6 +4,7 @@ namespace Hans\Lyra\Tests\Feature;
 
 use Hans\Lyra\Exceptions\LyraException;
 use Hans\Lyra\Facades\Lyra;
+use Hans\Lyra\Gateways\IDPay;
 use Hans\Lyra\Gateways\Payir;
 use Hans\Lyra\Gateways\Zarinpal;
 use Hans\Lyra\Helpers\Enums\Status;
@@ -147,10 +148,10 @@ class LyraServiceTest extends TestCase
             'token'  => Lyra::getInvoice()->token,
         ]);
         Lyra::swap(new LyraService());
-        Lyra::setGateway(Zarinpal::class, 10000, 'sandbox');
+        Lyra::setGateway(IDPay::class, 10000, 'sandbox');
 
         $this->expectException(LyraException::class);
-        $this->expectExceptionMessage('Wrong gateway ['.Zarinpal::class.'] selected for verification!');
+        $this->expectExceptionMessage('Wrong gateway ['.IDPay::class.'] selected for verification!');
 
         Lyra::verify();
     }
