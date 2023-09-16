@@ -73,12 +73,12 @@ return [
             'modes' => [
                 'normal'  => [
                     'purchase'     => 'https://api.idpay.ir/v1.1/payment',
-                    'payment'      => 'https://idpay.ir/p/ws/',
+                    'payment'      => 'https://idpay.ir/p/ws/:id',
                     'verification' => 'https://api.idpay.ir/v1.1/payment/verify',
                 ],
                 'sandbox' => [
                     'purchase'     => 'https://api.idpay.ir/v1.1/payment',
-                    'payment'      => 'https://idpay.ir/p/ws-sandbox/',
+                    'payment'      => 'https://idpay.ir/p/ws-sandbox/:id',
                     'verification' => 'https://api.idpay.ir/v1.1/payment/verify',
                 ],
             ],
