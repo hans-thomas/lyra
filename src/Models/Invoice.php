@@ -3,19 +3,22 @@
 namespace Hans\Lyra\Models;
 
 use Hans\Lyra\Helpers\Enums\Status;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 
 /**
- * @property int        $id
- * @property int        $number
- * @property string     $token
- * @property string     $transaction_id
- * @property string     $gateway
- * @property int        $amount
- * @property Status     $status
+ * @property int $id
+ * @property int $number
+ * @property string $token
+ * @property string $transaction_id
+ * @property string $gateway
+ * @property int $amount
+ * @property Status $status
+ * @property boolean $offline
  * @property Collection $items
+ * @method static Builder offline()
  */
 class Invoice extends Model
 {
@@ -31,6 +34,7 @@ class Invoice extends Model
         'gateway',
         'amount',
         'status',
+        'offline'
     ];
 
     /**
@@ -39,7 +43,8 @@ class Invoice extends Model
      * @var array
      */
     protected $casts = [
-        'status' => Status::class,
+        'status'  => Status::class,
+        'offline' => 'bool'
     ];
 
     /**
@@ -50,6 +55,26 @@ class Invoice extends Model
     protected static function booted()
     {
         self::creating(fn (self $model) => $model->number = generate_unique_invoice_number());
+    }
+
+    /**
+     * @param  Builder  $builder
+     *
+     * @return void
+     */
+    public function scopeOffline(Builder $builder): void
+    {
+        $builder->where('offline', 1);
+    }
+
+    /**
+     * @return $this
+     */
+    public function setOffline(): self
+    {
+        $this->offline = true;
+
+        return $this;
     }
 
     /**

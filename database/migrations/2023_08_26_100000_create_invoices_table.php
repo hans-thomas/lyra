@@ -16,12 +16,13 @@ return new class() extends Migration {
     {
         Schema::create((new Invoice())->getTable(), function (Blueprint $table) {
             $table->id();
-            $table->smallInteger('number'); // Max value: 65535
+            $table->smallInteger('number'); // Max value: 65535 TODO: bigger range needed
             $table->string('token', 128)->nullable()->unique();
             $table->string('transaction_id', 256)->nullable()->unique();
             $table->string('gateway');
             $table->unsignedDecimal('amount', 10);
             $table->string('status', 32)->default(Status::PENDING->name);
+            $table->boolean('offline')->default(false);
             $table->timestamps();
         });
     }
