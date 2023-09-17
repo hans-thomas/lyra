@@ -9,15 +9,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 
 /**
- * @property int $id
- * @property int $number
- * @property string $token
- * @property string $transaction_id
- * @property string $gateway
- * @property int $amount
- * @property Status $status
- * @property boolean $offline
+ * @property int        $id
+ * @property int        $number
+ * @property string     $token
+ * @property string     $transaction_id
+ * @property string     $gateway
+ * @property int        $amount
+ * @property Status     $status
+ * @property bool       $offline
  * @property Collection $items
+ *
  * @method static Builder offline()
  */
 class Invoice extends Model
@@ -34,7 +35,7 @@ class Invoice extends Model
         'gateway',
         'amount',
         'status',
-        'offline'
+        'offline',
     ];
 
     /**
@@ -44,7 +45,7 @@ class Invoice extends Model
      */
     protected $casts = [
         'status'  => Status::class,
-        'offline' => 'bool'
+        'offline' => 'bool',
     ];
 
     /**
@@ -58,7 +59,7 @@ class Invoice extends Model
     }
 
     /**
-     * @param  Builder  $builder
+     * @param Builder $builder
      *
      * @return void
      */
