@@ -9,7 +9,7 @@ use Hans\Lyra\Tests\Feature\Gateways\Contracts\Gateway;
 use Hans\Lyra\Tests\TestCase;
 use Illuminate\Support\Str;
 
-class Payir extends TestCase implements Gateway
+class PayirTest extends TestCase implements Gateway
 {
     /**
      * @test

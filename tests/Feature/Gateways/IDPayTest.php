@@ -9,7 +9,7 @@ use Hans\Lyra\Tests\Feature\Gateways\Contracts\Gateway;
 use Hans\Lyra\Tests\TestCase;
 use Illuminate\Support\Str;
 
-class IDPay extends TestCase implements Gateway
+class IDPayTest extends TestCase implements Gateway
 {
     /**
      * @test
