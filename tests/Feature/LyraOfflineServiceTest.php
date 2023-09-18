@@ -77,4 +77,54 @@ class LyraOfflineServiceTest extends TestCase
 
         Lyra::offline()->accept($invoice);
     }
+
+    /**
+     * @test
+     *
+     * @return void
+     */
+    public function deny(): void
+    {
+        $file = UploadedFile::fake()
+                            ->createWithContent('fake-receipt.jpg',
+                                file_get_contents(__DIR__.'/../resources/receipt.jpg'));
+
+        $invoice = Lyra::offline()->pay($file, 10000)->getInvoice();
+
+        Lyra::swapOffline(new LyraOfflineService());
+
+        self::assertTrue(Lyra::offline()->deny($invoice));
+        self::assertEquals(Status::FAILED, $invoice->status);
+
+        $invoice = Lyra::offline()->pay($file, 10000)->getInvoice();
+
+        Lyra::swapOffline(new LyraOfflineService());
+
+        self::assertTrue(Lyra::offline()->deny($invoice->id));
+        $invoice->refresh();
+        self::assertEquals(Status::FAILED, $invoice->status);
+    }
+
+
+    /**
+     * @test
+     *
+     * @return void
+     */
+    public function denyAnAcceptedInvoice(): void
+    {
+        $file = UploadedFile::fake()
+                            ->createWithContent('fake-receipt.jpg',
+                                file_get_contents(__DIR__.'/../resources/receipt.jpg'));
+
+        $invoice = Lyra::offline()->pay($file, 10000)->getInvoice();
+
+        Lyra::offline()->accept($invoice);
+
+        $this->expectException(LyraException::class);
+        $this->expectExceptionMessage("Receipt #$invoice->number is not valid!");
+
+        Lyra::offline()->deny($invoice);
+    }
+
 }
