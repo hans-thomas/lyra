@@ -3,6 +3,7 @@
 namespace Hans\Lyra\Tests;
 
 use GuzzleHttp\Client;
+use Hans\Alicia\AliciaServiceProvider;
 use Hans\Lyra\LyraServiceProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -49,6 +50,7 @@ class TestCase extends BaseTestCase
     {
         return [
             LyraServiceProvider::class,
+            AliciaServiceProvider::class,
         ];
     }
 
