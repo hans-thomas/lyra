@@ -43,4 +43,9 @@ class Lyra extends Facade
 
         return self::$offline_service = new LyraOfflineService();
     }
+
+    public static function swapOffline(LyraOfflineService $service): void
+    {
+        self::$offline_service = $service;
+    }
 }
