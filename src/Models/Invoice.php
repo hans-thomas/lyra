@@ -2,6 +2,7 @@
 
 namespace Hans\Lyra\Models;
 
+use Hans\Alicia\Traits\AliciaHandler;
 use Hans\Lyra\Helpers\Enums\Status;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -23,6 +24,8 @@ use Illuminate\Support\Collection;
  */
 class Invoice extends Model
 {
+    use AliciaHandler;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -59,7 +62,7 @@ class Invoice extends Model
     }
 
     /**
-     * @param Builder $builder
+     * @param  Builder  $builder
      *
      * @return void
      */
@@ -76,6 +79,11 @@ class Invoice extends Model
         $this->offline = true;
 
         return $this;
+    }
+
+    public function isPending(): bool
+    {
+        return $this->status == Status::PENDING;
     }
 
     /**

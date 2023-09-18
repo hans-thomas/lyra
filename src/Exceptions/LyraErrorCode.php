@@ -11,4 +11,5 @@ class LyraErrorCode
     public const AMOUNT_NOT_PASSED = 'LyraEC4';
     public const ORDER_ID_MISMATCHED = 'LyraEC5';
     public const INVOICE_IS_NOT_VALID = 'LyraEC6';
+    public const INVOICE_NOT_FOUND_OR_NOT_OFFLINE = 'LyraEC7';
 }
