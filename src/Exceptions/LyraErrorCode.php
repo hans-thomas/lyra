@@ -10,4 +10,5 @@ class LyraErrorCode
     public const TOKEN_MISMATCHED = 'LyraEC3';
     public const AMOUNT_NOT_PASSED = 'LyraEC4';
     public const ORDER_ID_MISMATCHED = 'LyraEC5';
+    public const INVOICE_IS_NOT_VALID = 'LyraEC6';
 }
