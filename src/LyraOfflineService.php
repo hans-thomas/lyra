@@ -43,6 +43,24 @@ class LyraOfflineService
         return true;
     }
 
+    public function deny(Invoice|int $invoice): bool
+    {
+        $this->invoice = is_int($invoice) ? $this->findOrCreateInvoice($invoice) : $invoice;
+
+        throw_unless(
+            $this->invoice->isPending(),
+            LyraException::make(
+                "Receipt #{$this->invoice->number} is not valid!",
+                LyraErrorCode::INVOICE_IS_NOT_VALID
+            )
+        );
+
+        $this->invoice->status = Status::FAILED;
+        $this->invoice->save();
+
+        return true;
+    }
+
     public function getInvoice(): Invoice
     {
         return $this->invoice->refresh();
