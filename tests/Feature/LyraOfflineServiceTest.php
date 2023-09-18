@@ -19,8 +19,10 @@ class LyraOfflineServiceTest extends TestCase
     public function pay(): void
     {
         $file = UploadedFile::fake()
-                            ->createWithContent('fake-receipt.jpg',
-                                file_get_contents(__DIR__.'/../resources/receipt.jpg'));
+                            ->createWithContent(
+                                'fake-receipt.jpg',
+                                file_get_contents(__DIR__.'/../resources/receipt.jpg')
+                            );
 
         $invoice = Lyra::offline()->pay($file, $amount = 10000)->getInvoice();
 
@@ -38,8 +40,10 @@ class LyraOfflineServiceTest extends TestCase
     public function accept(): void
     {
         $file = UploadedFile::fake()
-                            ->createWithContent('fake-receipt.jpg',
-                                file_get_contents(__DIR__.'/../resources/receipt.jpg'));
+                            ->createWithContent(
+                                'fake-receipt.jpg',
+                                file_get_contents(__DIR__.'/../resources/receipt.jpg')
+                            );
 
         $invoice = Lyra::offline()->pay($file, 10000)->getInvoice();
 
@@ -65,8 +69,10 @@ class LyraOfflineServiceTest extends TestCase
     public function acceptAnAcceptedInvoice(): void
     {
         $file = UploadedFile::fake()
-                            ->createWithContent('fake-receipt.jpg',
-                                file_get_contents(__DIR__.'/../resources/receipt.jpg'));
+                            ->createWithContent(
+                                'fake-receipt.jpg',
+                                file_get_contents(__DIR__.'/../resources/receipt.jpg')
+                            );
 
         $invoice = Lyra::offline()->pay($file, 10000)->getInvoice();
 
@@ -86,8 +92,10 @@ class LyraOfflineServiceTest extends TestCase
     public function deny(): void
     {
         $file = UploadedFile::fake()
-                            ->createWithContent('fake-receipt.jpg',
-                                file_get_contents(__DIR__.'/../resources/receipt.jpg'));
+                            ->createWithContent(
+                                'fake-receipt.jpg',
+                                file_get_contents(__DIR__.'/../resources/receipt.jpg')
+                            );
 
         $invoice = Lyra::offline()->pay($file, 10000)->getInvoice();
 
@@ -105,7 +113,6 @@ class LyraOfflineServiceTest extends TestCase
         self::assertEquals(Status::FAILED, $invoice->status);
     }
 
-
     /**
      * @test
      *
@@ -114,8 +121,10 @@ class LyraOfflineServiceTest extends TestCase
     public function denyAnAcceptedInvoice(): void
     {
         $file = UploadedFile::fake()
-                            ->createWithContent('fake-receipt.jpg',
-                                file_get_contents(__DIR__.'/../resources/receipt.jpg'));
+                            ->createWithContent(
+                                'fake-receipt.jpg',
+                                file_get_contents(__DIR__.'/../resources/receipt.jpg')
+                            );
 
         $invoice = Lyra::offline()->pay($file, 10000)->getInvoice();
 
@@ -126,5 +135,4 @@ class LyraOfflineServiceTest extends TestCase
 
         Lyra::offline()->deny($invoice);
     }
-
 }

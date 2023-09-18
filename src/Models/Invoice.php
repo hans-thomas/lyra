@@ -62,7 +62,7 @@ class Invoice extends Model
     }
 
     /**
-     * @param  Builder  $builder
+     * @param Builder $builder
      *
      * @return void
      */

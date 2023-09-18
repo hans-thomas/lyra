@@ -77,8 +77,11 @@ class LyraOfflineService
         }
 
         return Invoice::offline()->findOr(
-            $id, callback: fn () => throw LyraException::make("Invoice is not found or not a offline invoice!",
-            LyraErrorCode::INVOICE_NOT_FOUND_OR_NOT_OFFLINE)
+            $id,
+            callback: fn () => throw LyraException::make(
+                'Invoice is not found or not a offline invoice!',
+                LyraErrorCode::INVOICE_NOT_FOUND_OR_NOT_OFFLINE
+            )
         );
     }
 }
