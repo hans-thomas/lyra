@@ -8,6 +8,8 @@ use Hans\Lyra\Exceptions\LyraException;
 use Hans\Lyra\Helpers\Enums\Status;
 use Hans\Lyra\Models\Invoice;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class LyraOfflineService
 {
@@ -17,10 +19,20 @@ class LyraOfflineService
     {
         $this->invoice = $this->findOrCreateInvoice();
         $this->invoice->amount = $amount;
-        $this->invoice->save();
-
         $file = Alicia::upload($file)->getData();
-        $this->invoice->attachTo($file);
+
+        DB::beginTransaction();
+        try {
+            $this->invoice->save();
+            $this->invoice->attachTo($file);
+        } catch (Throwable $e) {
+            DB::rollBack();
+            throw LyraException::make(
+                'Failed to pay manually the invoice! '. $e->getMessage(),
+                LyraErrorCode::FAILED_TO_PAY_MANUALLY
+            );
+        }
+        DB::commit();
 
         return $this;
     }

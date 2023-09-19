@@ -8,6 +8,8 @@ use Hans\Lyra\Exceptions\LyraException;
 use Hans\Lyra\Helpers\Enums\Status;
 use Hans\Lyra\Models\Invoice;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class LyraService
 {
@@ -36,9 +38,19 @@ class LyraService
         $this->invoice->gateway = get_class($this->gateway);
         $this->invoice->amount = $this->gateway->getAmount();
         $this->invoice->number = $invoiceNumber;
-        $this->invoice->save();
 
-        $this->gatewayRedirectUrl = $this->gateway->pay($token);
+        DB::beginTransaction();
+        try {
+            $this->invoice->save();
+            $this->gatewayRedirectUrl = $this->gateway->pay($token);
+        } catch (Throwable $e) {
+            DB::rollBack();
+            throw LyraException::make(
+                'Failed to pay the invoice! '.$e->getMessage(),
+                LyraErrorCode::FAILED_TO_PAY
+            );
+        }
+        DB::commit();
 
         return $this;
     }
