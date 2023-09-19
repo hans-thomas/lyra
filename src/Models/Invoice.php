@@ -61,9 +61,9 @@ class Invoice extends Model
     }
 
     /**
-     * Just offline records will be return
+     * Just offline records will be return.
      *
-     * @param  Builder  $builder
+     * @param Builder $builder
      *
      * @return void
      */
@@ -73,7 +73,7 @@ class Invoice extends Model
     }
 
     /**
-     * Set the current instance as offline
+     * Set the current instance as offline.
      *
      * @return $this
      */
@@ -85,7 +85,7 @@ class Invoice extends Model
     }
 
     /**
-     * Check if the current instance's status is pending
+     * Check if the current instance's status is pending.
      *
      * @return bool
      */

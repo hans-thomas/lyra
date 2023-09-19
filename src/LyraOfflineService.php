@@ -14,20 +14,21 @@ use Throwable;
 class LyraOfflineService
 {
     /**
-     * Related invoice instance
+     * Related invoice instance.
      *
      * @var Invoice
      */
     private Invoice $invoice;
 
     /**
-     * Pay an invoice with determined amount
+     * Pay an invoice with determined amount.
      *
-     * @param  UploadedFile  $file
-     * @param  int           $amount
+     * @param UploadedFile $file
+     * @param int          $amount
+     *
+     * @throws LyraException
      *
      * @return $this
-     * @throws LyraException
      */
     public function pay(UploadedFile $file, int $amount): self
     {
@@ -36,11 +37,13 @@ class LyraOfflineService
         $file = Alicia::upload($file)->getData();
 
         DB::beginTransaction();
+
         try {
             $this->invoice->save();
             $this->invoice->attachTo($file);
         } catch (Throwable $e) {
             DB::rollBack();
+
             throw LyraException::make(
                 'Failed to pay manually the invoice! '.$e->getMessage(),
                 LyraErrorCode::FAILED_TO_PAY_MANUALLY
@@ -52,9 +55,9 @@ class LyraOfflineService
     }
 
     /**
-     * Accept the requested invoice purchase
+     * Accept the requested invoice purchase.
      *
-     * @param  Invoice|int  $invoice
+     * @param Invoice|int $invoice
      *
      * @return bool
      */
@@ -77,9 +80,9 @@ class LyraOfflineService
     }
 
     /**
-     * Deny the requested invoice purchase
+     * Deny the requested invoice purchase.
      *
-     * @param  Invoice|int  $invoice
+     * @param Invoice|int $invoice
      *
      * @return bool
      */
@@ -102,7 +105,7 @@ class LyraOfflineService
     }
 
     /**
-     * Return invoice instance
+     * Return invoice instance.
      *
      * @return Invoice
      */
@@ -112,9 +115,9 @@ class LyraOfflineService
     }
 
     /**
-     * Find or create an instance of the invoice model
+     * Find or create an instance of the invoice model.
      *
-     * @param  int|null  $id
+     * @param int|null $id
      *
      * @return Invoice
      */

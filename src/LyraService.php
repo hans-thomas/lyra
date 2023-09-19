@@ -14,31 +14,32 @@ use Throwable;
 class LyraService
 {
     /**
-     * Gateway instance
+     * Gateway instance.
      *
      * @var Gateway
      */
     private Gateway $gateway;
 
     /**
-     * Related invoice model instance
+     * Related invoice model instance.
      *
      * @var Invoice
      */
     private Invoice $invoice;
 
     /**
-     * Resolved gateway's url to redirect the user to
+     * Resolved gateway's url to redirect the user to.
      *
      * @var string
      */
     private string $gatewayRedirectUrl;
 
     /**
-     * Pay an invoice with determined amount
+     * Pay an invoice with determined amount.
+     *
+     * @throws LyraException
      *
      * @return $this
-     * @throws LyraException
      */
     public function pay(): self
     {
@@ -63,11 +64,13 @@ class LyraService
         $this->invoice->number = $invoiceNumber;
 
         DB::beginTransaction();
+
         try {
             $this->invoice->save();
             $this->gatewayRedirectUrl = $this->gateway->pay($token);
         } catch (Throwable $e) {
             DB::rollBack();
+
             throw LyraException::make(
                 'Failed to pay the invoice! '.$e->getMessage(),
                 LyraErrorCode::FAILED_TO_PAY
@@ -79,7 +82,7 @@ class LyraService
     }
 
     /**
-     * Return resolved Gateway's url
+     * Return resolved Gateway's url.
      *
      * @return string
      */
@@ -89,7 +92,7 @@ class LyraService
     }
 
     /**
-     * Return to resolved Gateway's url
+     * Return to resolved Gateway's url.
      *
      * @return RedirectResponse
      */
@@ -99,11 +102,11 @@ class LyraService
     }
 
     /**
-     * Set a custom gateway on the go
+     * Set a custom gateway on the go.
      *
-     * @param  string       $gateway
-     * @param  int|null     $amount
-     * @param  string|null  $mode
+     * @param string      $gateway
+     * @param int|null    $amount
+     * @param string|null $mode
      *
      * @return $this
      */
@@ -122,10 +125,11 @@ class LyraService
     }
 
     /**
-     * Verify the purchase
+     * Verify the purchase.
+     *
+     * @throws LyraException
      *
      * @return bool
-     * @throws LyraException
      */
     public function verify(): bool
     {
@@ -169,9 +173,9 @@ class LyraService
     }
 
     /**
-     * Find or create an instance of the invoice model
+     * Find or create an instance of the invoice model.
      *
-     * @param  string|null  $token
+     * @param string|null $token
      *
      * @return Invoice
      */
@@ -185,7 +189,7 @@ class LyraService
     }
 
     /**
-     * Return invoice instance
+     * Return invoice instance.
      *
      * @return Invoice
      */

@@ -11,12 +11,13 @@ use Hans\Lyra\Models\Invoice;
 class IDPay extends Gateway
 {
     /**
-     * Send a request to the gateway and receive a token
+     * Send a request to the gateway and receive a token.
      *
-     * @param  int|string|null  $order_id
+     * @param int|string|null $order_id
+     *
+     * @throws GuzzleException
      *
      * @return string
-     * @throws GuzzleException
      */
     public function request(int|string $order_id = null): string
     {
@@ -54,9 +55,9 @@ class IDPay extends Gateway
     }
 
     /**
-     * Build the payment page url
+     * Build the payment page url.
      *
-     * @param  string  $token
+     * @param string $token
      *
      * @return string
      */
@@ -70,13 +71,14 @@ class IDPay extends Gateway
     }
 
     /**
-     * Verify the purchase on callback
+     * Verify the purchase on callback.
      *
-     * @param  Invoice  $invoice
+     * @param Invoice $invoice
      *
-     * @return bool
      * @throws GuzzleException
      * @throws LyraException
+     *
+     * @return bool
      */
     public function verify(Invoice $invoice): bool
     {
@@ -165,7 +167,7 @@ class IDPay extends Gateway
     }
 
     /**
-     * Extract the unique token from the request
+     * Extract the unique token from the request.
      *
      * @return string|null
      */
@@ -175,7 +177,7 @@ class IDPay extends Gateway
     }
 
     /**
-     * Return available error list of the gateway
+     * Return available error list of the gateway.
      *
      * @return array
      */
