@@ -59,9 +59,9 @@ class PayirTest extends TestCase implements Gateway
     public function verifyOnSuccess(): void
     {
         Lyra::setGateway(Payir::class, 10000, 'sandbox');
-        $invoice = Lyra::getInvoice();
 
         $url = Lyra::pay()->getRedirectUrl();
+        $invoice = Lyra::getInvoice();
         $token = Str::afterLast($url, '/');
         request()->merge(['status' => 1, 'token' => $token]);
 
@@ -81,9 +81,9 @@ class PayirTest extends TestCase implements Gateway
     public function verifyOnDuplicateVerification(): void
     {
         Lyra::setGateway(Payir::class, 10000, 'sandbox');
-        $invoice = Lyra::getInvoice();
 
         $url = Lyra::pay()->getRedirectUrl();
+        $invoice = Lyra::getInvoice();
         $token = Str::afterLast($url, '/');
         request()->merge(['status' => 1, 'token' => $token]);
 

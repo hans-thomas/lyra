@@ -60,9 +60,9 @@ class IDPayTest extends TestCase implements Gateway
     public function verifyOnSuccess(): void
     {
         Lyra::setGateway(IDPay::class, 10000, 'sandbox');
-        $invoice = Lyra::getInvoice();
 
         $url = Lyra::pay()->getRedirectUrl();
+        $invoice = Lyra::getInvoice();
         $id = Str::afterLast($url, '/');
         request()->merge([
             'status'   => 100,
@@ -87,9 +87,9 @@ class IDPayTest extends TestCase implements Gateway
     public function verifyOnDuplicateVerification(): void
     {
         Lyra::setGateway(IDPay::class, 10000, 'sandbox');
-        $invoice = Lyra::getInvoice();
 
         $url = Lyra::pay()->getRedirectUrl();
+        $invoice = Lyra::getInvoice();
         $id = Str::afterLast($url, '/');
         request()->merge([
             'status'   => 100,
@@ -114,9 +114,9 @@ class IDPayTest extends TestCase implements Gateway
     public function verifyOnFailed(): void
     {
         Lyra::setGateway(IDPay::class, 10000, 'sandbox');
-        $invoice = Lyra::getInvoice();
 
         $url = Lyra::pay()->getRedirectUrl();
+        $invoice = Lyra::getInvoice();
         $id = Str::afterLast($url, '/');
         request()->merge([
             'status'   => 1,

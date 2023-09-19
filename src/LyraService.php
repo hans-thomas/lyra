@@ -15,11 +15,6 @@ class LyraService
     private Invoice $invoice;
     private string $gatewayRedirectUrl;
 
-    public function __construct()
-    {
-        $this->invoice = $this->findOrCreateInvoice();
-    }
-
     public function pay(): self
     {
         if (!isset($this->gateway)) {
@@ -36,6 +31,7 @@ class LyraService
         $invoiceNumber = generate_unique_invoice_number();
         $token = $this->gateway->request($invoiceNumber);
 
+        $this->invoice = $this->findOrCreateInvoice();
         $this->invoice->token = $token;
         $this->invoice->gateway = get_class($this->gateway);
         $this->invoice->amount = $this->gateway->getAmount();
