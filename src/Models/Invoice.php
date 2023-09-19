@@ -6,7 +6,6 @@ use Hans\Alicia\Traits\AliciaHandler;
 use Hans\Lyra\Helpers\Enums\Status;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 
 /**
@@ -62,7 +61,9 @@ class Invoice extends Model
     }
 
     /**
-     * @param Builder $builder
+     * Just offline records will be return
+     *
+     * @param  Builder  $builder
      *
      * @return void
      */
@@ -72,27 +73,24 @@ class Invoice extends Model
     }
 
     /**
+     * Set the current instance as offline
+     *
      * @return $this
      */
-    public function setOffline(): self
+    public function setAsOffline(): self
     {
         $this->offline = true;
 
         return $this;
     }
 
+    /**
+     * Check if the current instance's status is pending
+     *
+     * @return bool
+     */
     public function isPending(): bool
     {
         return $this->status == Status::PENDING;
-    }
-
-    /**
-     * Relationship's definition with Invoicable.
-     *
-     * @return HasMany
-     */
-    public function items(): HasMany
-    {
-        return $this->hasMany(Invoicable::class)->latest();
     }
 }
