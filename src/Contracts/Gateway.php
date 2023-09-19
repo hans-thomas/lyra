@@ -8,29 +8,29 @@ use Hans\Lyra\Models\Invoice;
 abstract class Gateway
 {
     /**
-     * Settings related to the selected gateway
+     * Settings related to the selected gateway.
      *
      * @var array|mixed
      */
     protected readonly array $settings;
 
     /**
-     * GuzzleHttp instance
+     * GuzzleHttp instance.
      *
      * @var Client
      */
     protected readonly Client $client;
 
     /**
-     * Gateway mode
+     * Gateway mode.
      *
      * @var string|mixed
      */
     protected readonly string $mode;
 
     /**
-     * @param  int|null     $amount
-     * @param  string|null  $mode
+     * @param int|null    $amount
+     * @param string|null $mode
      */
     public function __construct(
         protected ?int $amount = null,
@@ -46,48 +46,48 @@ abstract class Gateway
     }
 
     /**
-     * Send a request to the gateway and receive a token
+     * Send a request to the gateway and receive a token.
      *
-     * @param  int|string|null  $order_id
+     * @param int|string|null $order_id
      *
      * @return string
      */
     abstract public function request(int|string $order_id = null): string;
 
     /**
-     * Build the payment page url
+     * Build the payment page url.
      *
-     * @param  string  $token
+     * @param string $token
      *
      * @return string
      */
     abstract public function pay(string $token): string;
 
     /**
-     * Verify the purchase on callback
+     * Verify the purchase on callback.
      *
-     * @param  Invoice  $invoice
+     * @param Invoice $invoice
      *
      * @return bool
      */
     abstract public function verify(Invoice $invoice): bool;
 
     /**
-     * Extract the unique token from the request
+     * Extract the unique token from the request.
      *
      * @return string|null
      */
     abstract public function getTokenFromRequest(): ?string;
 
     /**
-     * Return available error list of the gateway
+     * Return available error list of the gateway.
      *
      * @return array
      */
     abstract public function errorsList(): array;
 
     /**
-     * Return api end-points of the gateway despite the determined mode
+     * Return api end-points of the gateway despite the determined mode.
      *
      * @return array
      */
@@ -97,7 +97,7 @@ abstract class Gateway
     }
 
     /**
-     * Determine the sandbox mode is enabled or not
+     * Determine the sandbox mode is enabled or not.
      *
      * @return bool
      */
@@ -107,10 +107,10 @@ abstract class Gateway
     }
 
     /**
-     * Translate the error code to the related message
+     * Translate the error code to the related message.
      *
-     * @param  int     $code
-     * @param  string  $default
+     * @param int    $code
+     * @param string $default
      *
      * @return string
      */
@@ -124,9 +124,9 @@ abstract class Gateway
     }
 
     /**
-     * Set amount of the payment
+     * Set amount of the payment.
      *
-     * @param  int  $amount
+     * @param int $amount
      *
      * @return $this
      */
@@ -138,7 +138,7 @@ abstract class Gateway
     }
 
     /**
-     * Get amount of the payment
+     * Get amount of the payment.
      *
      * @return int|null
      */

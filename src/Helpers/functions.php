@@ -4,10 +4,10 @@
 
     if (!function_exists('lyra_config')) {
         /**
-         * Return lyra configs
+         * Return lyra configs.
          *
-         * @param  string      $key
-         * @param  mixed|null  $default
+         * @param string     $key
+         * @param mixed|null $default
          *
          * @return mixed
          */
@@ -18,7 +18,7 @@
     }
     if (!function_exists('generate_unique_invoice_number')) {
         /**
-         * Generate a unique integer for numbering invoices
+         * Generate a unique integer for numbering invoices.
          *
          * @return int
          */

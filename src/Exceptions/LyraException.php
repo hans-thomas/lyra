@@ -8,17 +8,17 @@ use Throwable;
 class LyraException extends Exception
 {
     /**
-     * Related error code of the exception
+     * Related error code of the exception.
      *
      * @var int|string
      */
     private int|string $errorCode;
 
     /**
-     * @param  string          $message
-     * @param  int|string      $errorCode
-     * @param  int             $responseCode
-     * @param  Throwable|null  $previous
+     * @param string         $message
+     * @param int|string     $errorCode
+     * @param int            $responseCode
+     * @param Throwable|null $previous
      */
     public function __construct(string $message, int|string $errorCode, int $responseCode = 500, Throwable $previous = null)
     {
@@ -27,10 +27,10 @@ class LyraException extends Exception
     }
 
     /**
-     * @param  string          $message
-     * @param  int|string      $errorCode
-     * @param  int             $responseCode
-     * @param  Throwable|null  $previous
+     * @param string         $message
+     * @param int|string     $errorCode
+     * @param int            $responseCode
+     * @param Throwable|null $previous
      *
      * @return static
      */
@@ -40,7 +40,7 @@ class LyraException extends Exception
     }
 
     /**
-     * Return the error code
+     * Return the error code.
      *
      * @return int|string
      */
