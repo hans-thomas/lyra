@@ -13,10 +13,33 @@ use Throwable;
 
 class LyraService
 {
+    /**
+     * Gateway instance
+     *
+     * @var Gateway
+     */
     private Gateway $gateway;
+
+    /**
+     * Related invoice model instance
+     *
+     * @var Invoice
+     */
     private Invoice $invoice;
+
+    /**
+     * Resolved gateway's url to redirect the user to
+     *
+     * @var string
+     */
     private string $gatewayRedirectUrl;
 
+    /**
+     * Pay an invoice with determined amount
+     *
+     * @return $this
+     * @throws LyraException
+     */
     public function pay(): self
     {
         if (!isset($this->gateway)) {
@@ -55,16 +78,35 @@ class LyraService
         return $this;
     }
 
+    /**
+     * Return resolved Gateway's url
+     *
+     * @return string
+     */
     public function getRedirectUrl(): string
     {
         return $this->gatewayRedirectUrl;
     }
 
+    /**
+     * Return to resolved Gateway's url
+     *
+     * @return RedirectResponse
+     */
     public function redirect(): RedirectResponse
     {
         return redirect()->away($this->gatewayRedirectUrl);
     }
 
+    /**
+     * Set a custom gateway on the go
+     *
+     * @param  string       $gateway
+     * @param  int|null     $amount
+     * @param  string|null  $mode
+     *
+     * @return $this
+     */
     public function setGateway(string $gateway, int $amount = null, string $mode = null): self
     {
         throw_unless(
@@ -79,6 +121,12 @@ class LyraService
         return $this;
     }
 
+    /**
+     * Verify the purchase
+     *
+     * @return bool
+     * @throws LyraException
+     */
     public function verify(): bool
     {
         if (!isset($this->gateway)) {
@@ -120,6 +168,13 @@ class LyraService
         return true;
     }
 
+    /**
+     * Find or create an instance of the invoice model
+     *
+     * @param  string|null  $token
+     *
+     * @return Invoice
+     */
     protected function findOrCreateInvoice(string $token = null): Invoice
     {
         if (is_null($token)) {
@@ -129,6 +184,11 @@ class LyraService
         return Invoice::query()->where('token', $token)->firstOrFail();
     }
 
+    /**
+     * Return invoice instance
+     *
+     * @return Invoice
+     */
     public function getInvoice(): Invoice
     {
         return $this->invoice->refresh();

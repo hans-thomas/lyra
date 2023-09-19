@@ -2,6 +2,7 @@
 
 namespace Hans\Lyra\Gateways;
 
+use GuzzleHttp\Exception\GuzzleException;
 use Hans\Lyra\Contracts\Gateway;
 use Hans\Lyra\Exceptions\LyraErrorCode;
 use Hans\Lyra\Exceptions\LyraException;
@@ -9,6 +10,14 @@ use Hans\Lyra\Models\Invoice;
 
 class IDPay extends Gateway
 {
+    /**
+     * Send a request to the gateway and receive a token
+     *
+     * @param  int|string|null  $order_id
+     *
+     * @return string
+     * @throws GuzzleException
+     */
     public function request(int|string $order_id = null): string
     {
         $data = array_diff_key(
@@ -44,6 +53,13 @@ class IDPay extends Gateway
         return $result['id'];
     }
 
+    /**
+     * Build the payment page url
+     *
+     * @param  string  $token
+     *
+     * @return string
+     */
     public function pay(string $token): string
     {
         return str_replace(
@@ -53,6 +69,15 @@ class IDPay extends Gateway
         );
     }
 
+    /**
+     * Verify the purchase on callback
+     *
+     * @param  Invoice  $invoice
+     *
+     * @return bool
+     * @throws GuzzleException
+     * @throws LyraException
+     */
     public function verify(Invoice $invoice): bool
     {
         $callback = request()->only(
@@ -139,11 +164,21 @@ class IDPay extends Gateway
         return true;
     }
 
+    /**
+     * Extract the unique token from the request
+     *
+     * @return string|null
+     */
     public function getTokenFromRequest(): ?string
     {
         return request('id');
     }
 
+    /**
+     * Return available error list of the gateway
+     *
+     * @return array
+     */
     public function errorsList(): array
     {
         return [

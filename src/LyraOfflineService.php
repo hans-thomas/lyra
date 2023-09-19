@@ -13,8 +13,22 @@ use Throwable;
 
 class LyraOfflineService
 {
+    /**
+     * Related invoice instance
+     *
+     * @var Invoice
+     */
     private Invoice $invoice;
 
+    /**
+     * Pay an invoice with determined amount
+     *
+     * @param  UploadedFile  $file
+     * @param  int           $amount
+     *
+     * @return $this
+     * @throws LyraException
+     */
     public function pay(UploadedFile $file, int $amount): self
     {
         $this->invoice = $this->findOrCreateInvoice();
@@ -28,7 +42,7 @@ class LyraOfflineService
         } catch (Throwable $e) {
             DB::rollBack();
             throw LyraException::make(
-                'Failed to pay manually the invoice! '. $e->getMessage(),
+                'Failed to pay manually the invoice! '.$e->getMessage(),
                 LyraErrorCode::FAILED_TO_PAY_MANUALLY
             );
         }
@@ -37,6 +51,13 @@ class LyraOfflineService
         return $this;
     }
 
+    /**
+     * Accept the requested invoice purchase
+     *
+     * @param  Invoice|int  $invoice
+     *
+     * @return bool
+     */
     public function accept(Invoice|int $invoice): bool
     {
         $this->invoice = is_int($invoice) ? $this->findOrCreateInvoice($invoice) : $invoice;
@@ -55,6 +76,13 @@ class LyraOfflineService
         return true;
     }
 
+    /**
+     * Deny the requested invoice purchase
+     *
+     * @param  Invoice|int  $invoice
+     *
+     * @return bool
+     */
     public function deny(Invoice|int $invoice): bool
     {
         $this->invoice = is_int($invoice) ? $this->findOrCreateInvoice($invoice) : $invoice;
@@ -73,16 +101,28 @@ class LyraOfflineService
         return true;
     }
 
+    /**
+     * Return invoice instance
+     *
+     * @return Invoice
+     */
     public function getInvoice(): Invoice
     {
         return $this->invoice->refresh();
     }
 
+    /**
+     * Find or create an instance of the invoice model
+     *
+     * @param  int|null  $id
+     *
+     * @return Invoice
+     */
     protected function findOrCreateInvoice(int $id = null): Invoice
     {
         if (is_null($id)) {
             $instance = new Invoice();
-            $instance->setOffline();
+            $instance->setAsOffline();
             $instance->gateway = 'manual';
 
             return $instance;
