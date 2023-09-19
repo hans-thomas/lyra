@@ -2,13 +2,6 @@
 
 namespace Hans\Lyra;
 
-use Hans\Lyra\Events\TokenReceived;
-use Hans\Lyra\Events\TransactionIdReceived;
-use Hans\Lyra\Listeners\CheckTransIdIsUnique;
-use Hans\Lyra\Listeners\StoreTokenOnDB;
-use Hans\Lyra\Listeners\StoreTransIdOnDB;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class LyraServiceProvider extends ServiceProvider
@@ -33,27 +26,10 @@ class LyraServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'lyra');
 
-        $this->registerRoutes();
         if ($this->app->runningInConsole()) {
             $this->registerCommands();
             $this->registerPublishes();
         }
-
-        Event::listen(TokenReceived::class, [StoreTokenOnDB::class]);
-        Event::listen(TransactionIdReceived::class, [
-            CheckTransIdIsUnique::class,
-            StoreTransIdOnDB::class,
-        ]);
-    }
-
-    /**
-     * Define routes setup.
-     *
-     * @return void
-     */
-    private function registerRoutes()
-    {
-        Route::prefix('lyra')->middleware('api')->group(__DIR__.'/../routes/api.php');
     }
 
     /**
