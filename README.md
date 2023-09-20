@@ -1,28 +1,15 @@
-# Package Starter
+# Lyra
 
-<p align="center"><img alt="starter banner" src="assets/starter-banner.png"></p>
+<p align="center"><img alt="lyra banner" src="assets/starter-banner.png"></p>
 
-[![codecov](https://codecov.io/gh/hans-thomas/package-starter/branch/master/graph/badge.svg?token=X1D6I0JLSZ)](https://codecov.io/gh/hans-thomas/package-starter)
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/hans-thomas/package-starter/php.yml)
-![GitHub top language](https://img.shields.io/github/languages/top/hans-thomas/package-starter)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/hans-thomas/package-starter)
-![StyleCi](https://github.styleci.io/repos/478665403/shield?style=plastic)
+[![codecov](https://codecov.io/gh/hans-thomas/lyra/branch/master/graph/badge.svg?token=X1D6I0JLSZ)](https://codecov.io/gh/hans-thomas/lyra)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/hans-thomas/lyra/php.yml)
+![GitHub top language](https://img.shields.io/github/languages/top/hans-thomas/lyra)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/hans-thomas/lyra)
+![StyleCi](https://github.styleci.io/repos/681052866/shield?style=plastic)
 
-It's a predefined laravel package scaffold with below features:
-
-- Predefined common package files
-- Customizable
-- Dockerized
-- Phpunit support
-- Xdebug
-- GitHub action
-- Codecov support
-
-Click on `Use this template` and then, create something amazing 🔥
-
-## Laravel starter
-
-If you are looking fo a laravel project starter, see [this](https://github.com/hans-thomas/laravel-starter).
+Lyra is a payment gateway that supports offline purchase as well. There are two defined gateway by default, but you can
+implement your owns.
 
 ## Contributing
 
@@ -35,6 +22,5 @@ If you are looking fo a laravel project starter, see [this](https://github.com/h
 Support
 -------
 
-- [Documentation]()
-- [Report bugs](https://github.com/hans-thomas/package-starter/issues)
+- [Report bugs](https://github.com/hans-thomas/lyra/issues)
 
