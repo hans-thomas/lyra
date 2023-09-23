@@ -5,10 +5,6 @@ namespace Hans\Lyra\Tests\Unit;
 use Hans\Lyra\Gateways\Payir;
 use Hans\Lyra\Helpers\Enums\Status;
 use Hans\Lyra\Models\Invoice;
-use Hans\Lyra\Tests\Core\Factories\PostFactory;
-use Hans\Lyra\Tests\Core\Factories\ProductFactory;
-use Hans\Lyra\Tests\Core\Models\Post;
-use Hans\Lyra\Tests\Core\Models\Product;
 use Hans\Lyra\Tests\TestCase;
 use Illuminate\Support\Str;
 
