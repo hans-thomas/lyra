@@ -18,6 +18,7 @@ use RuntimeException;
  * @method static Invoice          getInvoice()
  *
  * @see LyraService
+ * @see LyraOfflineService
  */
 class Lyra extends Facade
 {
