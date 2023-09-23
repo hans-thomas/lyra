@@ -22,7 +22,6 @@ class TestCase extends BaseTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->loadMigrationsFrom(__DIR__.'/Core/migrations');
 
         $this->client = new Client();
     }

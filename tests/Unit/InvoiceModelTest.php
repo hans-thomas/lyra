@@ -64,14 +64,4 @@ class InvoiceModelTest extends TestCase
                       ->create(array_merge(['gateway' => Payir::class, 'amount' => rand(10, 5000)], $data))
                       ->refresh();
     }
-
-    protected function makeProduct(array $data = []): Product
-    {
-        return ProductFactory::new()->create($data);
-    }
-
-    protected function makePost(array $data = []): Post
-    {
-        return PostFactory::new()->create($data);
-    }
 }
