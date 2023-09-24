@@ -1,6 +1,6 @@
 # Lyra
 
-<p align="center"><img alt="lyra banner" src="assets/starter-banner.png"></p>
+<p align="center"><img alt="lyra banner" src="assets/lyra-banner.png"></p>
 
 [![codecov](https://codecov.io/gh/hans-thomas/lyra/branch/master/graph/badge.svg?token=X1D6I0JLSZ)](https://codecov.io/gh/hans-thomas/lyra)
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/hans-thomas/lyra/php.yml)
