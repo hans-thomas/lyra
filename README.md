@@ -8,7 +8,7 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/hans-thomas/lyra)
 ![StyleCi](https://github.styleci.io/repos/681052866/shield?style=plastic)
 
-Lyra is a payment gateway that supports offline purchase as well. There are two defined gateway by default, but you can
+Lyra is a payment package that supports offline purchase as well. There are two defined gateway by default, but you can
 implement your own gateway(s).
 
 ## Installation
