@@ -8,7 +8,7 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/hans-thomas/lyra)
 ![StyleCi](https://github.styleci.io/repos/681052866/shield?style=plastic)
 
-Lyra is a payment package that supports offline purchase as well. There are two defined gateway by default, but you can
+Lyra is a payment package that supports offline purchases as well. There are two defined gateway by default, but you can
 implement your own gateway(s).
 
 ## Installation
@@ -27,13 +27,13 @@ php artisan vendor:publish --tag lyra-config
 
 ## Usage
 
-Lyra supports online and offline modes. First we are going to introduce the online mode.
+Lyra supports online and offline modes. First, we are going to introduce the online mode.
 
 ### Online purchase
 
 #### Pay
 
-To pay a purchase, you can simply call `pay` method and pass the amount.
+You can call the `pay` method and pass the amount to pay for a purchase.
 
 ```php
 Lyra::pay(10000);
@@ -41,7 +41,7 @@ Lyra::pay(10000);
 
 #### getRedirectUrl
 
-After calling `pay` method, you can call `getRedirectUrl` method to get the gateway url as string.
+After calling `pay` method, you can call `getRedirectUrl` method to get the gateway URL as a string.
 
 ```php
 Lyra::pay(10000)->getRedirectUrl();
@@ -49,7 +49,7 @@ Lyra::pay(10000)->getRedirectUrl();
 
 #### redirect
 
-Also, you can call `redirect` method to redirect the user to the gateway url after calling the `pay` method.
+Also, you can call `redirect` method to redirect the user to the gateway URL after calling the `pay` method.
 
 ```php
 Lyra::pay(10000)->redirect();
@@ -65,7 +65,7 @@ Lyra::setGateway(Payir::class, 10000)->pay();
 
 #### verify
 
-To verify the purchase, on callback, you can call `verify` method and pass the amount of payment.
+To verify the purchase, on callback, you can call `verify` method and pass the payment amount.
 
 ```php
 Lyra::verify(10000);
