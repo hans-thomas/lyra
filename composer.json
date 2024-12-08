@@ -1,6 +1,12 @@
 {
     "name": "hans-thomas/lyra",
     "description": "payment gateway with offline purchase support",
+    "keywords": [
+        "laravel",
+        "payment",
+        "laravel-package",
+        "payment-gateway"
+    ],
     "license": "MIT",
     "authors": [
         {
